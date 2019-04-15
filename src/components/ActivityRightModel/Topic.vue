@@ -1,0 +1,78 @@
+<template>
+  <div class="topics">
+    <div class="title">
+      <span>更多话题</span>
+      <router-link to="/topics"><span class="all">全部<li class="el-icon-arrow-right"></li></span></router-link>
+    </div><hr/>
+    <div class="body">
+      <a :href="'#'">
+        <div class="row" v-for="topic in arr" :key="topic.topicId">
+          <div class="col-md-2">
+            <img v-bind:src="topic.topicUrl">
+          </div>
+          <div class="col-md-8">
+            <span class="title">{{topic.topicName}}</span><br/>
+            <span class="follow">1关注·</span>
+            <span class="follow">1沸点</span>
+          </div>
+          <div class="col-md-2"></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: "Topic",
+    data(){
+      return{
+        user:JSON.parse(localStorage.getItem("loginUser")),
+        arr:[]
+      }
+    },
+    created:function () {
+      var that=this;
+      this.$http
+        .post("http://localhost:8080/topics/concerned",{"userId":this.user.userId})
+        .then(function(res) {
+          that.arr=res.data.data
+        })
+    }
+  }
+</script>
+
+<style scoped>
+  .all{
+    margin-left: 55%;
+    font-size: 13px;
+  }
+  a{
+    text-decoration: none;
+  }
+  .topics{
+    background-color: #F8F8F8;
+    width: 280px;
+  }
+  .body img{
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    display: inline-block;
+  }
+  .title{
+    font-size: 16px;
+    color: black;
+  }
+  .follow{
+    font-size: 12px;
+    color: #909399;
+    margin-top: -15%;
+  }
+  .col-md-8{
+    margin-left: 5%;
+  }
+  .row{
+    margin-top: 3%;
+  }
+</style>
