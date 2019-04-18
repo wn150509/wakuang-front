@@ -117,7 +117,7 @@
               alert("账号或密码不正确！！");
               that.$route.go(0)
             }else {
-              localStorage.setItem("loginUser", JSON.stringify(response.data.data))
+              localStorage.setItem("loginUser", JSON.stringify(response.data.data));
               that.$router.push("/")
             }
           })

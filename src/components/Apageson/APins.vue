@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>沸点</h2>
+    <h2>关注</h2>
   </div>
 </template>
 

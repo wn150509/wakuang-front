@@ -80,16 +80,11 @@ export default new Router({
         },
         {
           path:'/activities',
-          redirect:'/activities/all',
+          redirect:'/activities/posts',
           component: resolve =>require(['../components/page/Activities.vue'],resolve),
           meta:{title:'动态'},
           children:[
             //动态二级导航
-            {
-              path:'/activities/all',
-              component: resolve =>require(['../components/Apageson/Aall.vue'],resolve),
-              meta:{title:'综合'}
-            },
             {
               path:'/activities/posts',
               component:resolve =>require(['../components/Apageson/APosts.vue'],resolve),

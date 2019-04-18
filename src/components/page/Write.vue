@@ -31,6 +31,7 @@
               <el-button type="success" icon="el-icon-picture" circle slot="reference"></el-button>
             </el-popover>
           </el-breadcrumb-item>
+
           <el-breadcrumb-item class="title ">
             <el-popover
               width="300"
@@ -123,7 +124,7 @@
       quillEditor
     },
     created:function(){
-      var that=this
+      var that=this;
       this.$http
         .get("http://localhost:8080/labels/all")
         .then(function (res){
