@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="labels.length===0">
-      <h3>列表为空</h3>
+      <h3>标签列表为空</h3>
     </div>
     <div class="row" v-for="label in labels" :key="label.labelsId" v-else>
       <div class="col-md-2">
@@ -45,6 +45,24 @@
             that.labels=res.data.data
           })
       })
+    },
+    methods:{
+      insertlabel(labelId){
+        var that=this
+        this.$http
+          .post('http://localhost:8080/labels/insertlabel',{"userId":this.user.userId,"labelId":labelId})
+          .then(function (response) {
+            that.$router.go(0)
+          })
+      },
+      deletelabel(labelId){
+        var that=this
+        this.$http
+          .post('http://localhost:8080/labels/deletelabel',{"userId":this.user.userId,"labelId":labelId})
+          .then(function (response) {
+            that.$router.go(0)
+          })
+      }
     }
   }
 </script>

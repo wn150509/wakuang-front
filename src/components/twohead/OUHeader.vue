@@ -12,7 +12,7 @@
     <!--<el-menu-item index="4">-->
       <!--<router-link :to="'/ou/'+id+'/shares'">分享</router-link>-->
     <!--</el-menu-item>-->
-    <el-menu-item index="5">
+    <el-menu-item index="4">
       <el-col :span="12">
         <el-dropdown trigger="click">
         <span class="el-dropdown-link">
@@ -32,23 +32,28 @@
     <!--<el-menu-item index="6">-->
       <!--<router-link :to=" '/ou/'+id+'/books'">小册</router-link>-->
     <!--</el-menu-item>-->
-    <el-menu-item index="7">
-      <el-col :span="12">
-        <el-dropdown trigger="click">
-        <span class="el-dropdown-link">
-          更多<i class="el-icon-arrow-down el-icon--right"></i>
-        </span>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>
-              <router-link :to=" '/ou/'+id+'/collections'">收藏集</router-link>
-            </el-dropdown-item>
-            <el-dropdown-item>
-              <router-link :to=" '/ou/'+id+'/tags'">关注</router-link>
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-      </el-col>
+
+    <el-menu-item index="5">
+      <router-link :to=" '/ou/'+id+'/tags'">关注</router-link>
     </el-menu-item>
+
+    <!--<el-menu-item index="7">-->
+      <!--<el-col :span="12">-->
+        <!--<el-dropdown trigger="click">-->
+        <!--<span class="el-dropdown-link">-->
+          <!--更多<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
+        <!--</span>-->
+          <!--<el-dropdown-menu slot="dropdown">-->
+            <!--<el-dropdown-item>-->
+              <!--<router-link :to=" '/ou/'+id+'/collections'">收藏集</router-link>-->
+            <!--</el-dropdown-item>-->
+            <!--<el-dropdown-item>-->
+              <!--<router-link :to=" '/ou/'+id+'/tags'">关注</router-link>-->
+            <!--</el-dropdown-item>-->
+          <!--</el-dropdown-menu>-->
+        <!--</el-dropdown>-->
+      <!--</el-col>-->
+    <!--</el-menu-item>-->
   </el-menu>
 </template>
 

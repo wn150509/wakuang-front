@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="articles.length===0">
-      <h3>列表为空</h3>
+      <h3>文章列表为空</h3>
     </div>
     <div v-else>
       <div class="row" v-for="pop in articles" :key="pop.articleId">
@@ -17,7 +17,10 @@
             </a>
           </div>
           <div class="down">
-            <span class="tsdown"><i class="far fa-heart"></i>&nbsp;{{pop.likeCount}}</span>
+            <span class="tsdown">
+              <span @click="deletelike(pop.articleId)" v-if="pop.status===1" style="color: #bd2c00">❤</span>
+              <span v-else @click="insertlike(pop.articleId)"><i class="far fa-heart" ></i>
+              </span>&nbsp;{{pop.likeCount}}</span>
             <span class="btn"></span>
             <span class="tsdown"><i class="fas fa-comment"></i>&nbsp;{{pop.commentCount}}</span>
           </div><hr/>
@@ -27,7 +30,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -38,6 +40,7 @@
     name: "ArticlesPage",
     data(){
       return{
+        user:JSON.parse(localStorage.getItem('loginUser')),
         key:'',
         articles:[]
       }
@@ -47,7 +50,7 @@
         this.key=keyValue;
         var that=this;
         this.$http
-          .post("http://localhost:8080/articles/queryarticle",{"articleTitle":this.key})
+          .post("http://localhost:8080/articles/queryarticle",{"key":this.key,"userId":this.user.userId})
           .then(function (res) {
             that.articles=res.data.data;
             console.log(that.articles)

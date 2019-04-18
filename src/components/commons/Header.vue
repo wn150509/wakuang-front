@@ -77,11 +77,11 @@
                 <i class="far fa-heart" style="color:#C0C4CC"></i>&nbsp;&nbsp;我赞过的
               </router-link>
             </b-dropdown-item>
-            <b-dropdown-item>
-              <router-link :to=" '/user/'+user.userId+'/collections'">
-                <i class="el-icon-star-on" style="color: #C0C4CC"></i>&nbsp;&nbsp;我的收藏集
-              </router-link>
-            </b-dropdown-item>
+            <!--<b-dropdown-item>-->
+              <!--<router-link :to=" '/user/'+user.userId+'/collections'">-->
+                <!--<i class="el-icon-star-on" style="color: #C0C4CC"></i>&nbsp;&nbsp;我的收藏集-->
+              <!--</router-link>-->
+            <!--</b-dropdown-item>-->
             <!--<b-dropdown-item>-->
               <!--<router-link :to=" '/user/'+user.userId+'/books'">-->
                 <!--<li class="el-icon-goods" style="color: #C0C4CC"></li>&nbsp;&nbsp;已购-->

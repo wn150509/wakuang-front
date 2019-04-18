@@ -11,9 +11,8 @@
           <li><i class="fas fa-address-card"></i>&nbsp;&nbsp;<span>{{otherUser.description}}</span></li>
         </div>
         <div class="col-md-2">
-          <b-button size="sm" variant="outline-primary" class="bjzl">
-            关注
-          </b-button>
+          <button class="guanzhu2" v-if="otherUser.status===1" @click="deleteuser(otherUser.userId)">已关注</button>
+          <button class="guanzhu1" v-else @click="insertuser(otherUser.userId)">关注</button>
         </div>
       </div>
       <div class="aboutperson">
@@ -43,17 +42,36 @@
   export default {
     data(){
       return{
+        user:JSON.parse(localStorage.getItem('loginUser')),
         id:this.$route.params.id,
         otherUser:{}
       }
     },
     created(){
-      var that=this
+      var that=this;
       this.$http
-        .get('http://localhost:8080/user/'+this.id)
+        .post('http://localhost:8080/user/concern',{"userId":this.user.userId,"concerneduserId":this.id})
         .then(function (response) {
           that.otherUser=response.data.data
         })
+    },
+    methods:{
+      insertuser(userId){
+        var that=this;
+        this.$http
+          .post('http://localhost:8080/user/insertuser',{"userId":this.user.userId,"concerneduserId":userId})
+          .then(function (response) {
+            that.$router.go(0)
+          })
+      },
+      deleteuser(userId){
+        var that=this;
+        this.$http
+          .post('http://localhost:8080/user/deleteuser',{"userId":this.user.userId,"concerneduserId":userId})
+          .then(function (response) {
+            that.$router.go(0)
+          })
+      }
     },
     components:{
       vOUHeader
@@ -87,12 +105,35 @@
     margin-top: 30px;
     font-weight: bold;
   }
-  .bjzl{
-    margin-top: 50px;
-  }
   .grcj{
     width: 280px;
     background-color: #F8F8F8;
     box-shadow: 0 0 8px rgba(0,0,0,.1);
+  }
+  .guanzhu1{
+    width: 80px;
+    height: 35px;
+    border-radius: 5%;
+    margin-top: 18%;
+    color: #67C23A;
+    border: 2px solid #67C23A;
+    background-color: transparent;
+    overflow: hidden;
+    padding: 0;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .guanzhu2{
+    border: none;
+    width: 80px;
+    height: 35px;
+    border-radius: 5%;
+    margin-top: 18%;
+    color: white;
+    overflow: hidden;
+    padding: 0;
+    text-transform: uppercase;
+    cursor: pointer;
+    background-color: #67C23A;
   }
 </style>

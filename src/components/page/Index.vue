@@ -40,7 +40,7 @@
         <v-register v-if="user===null"></v-register>
         <v-author></v-author>
         <!--<v-books></v-books>-->
-        <v-others class="others"></v-others>
+        <!--<v-others class="others"></v-others>-->
       </div>
     </div>
   </div>

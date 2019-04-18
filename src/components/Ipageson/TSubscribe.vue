@@ -2,7 +2,11 @@
   <div>
     <el-tabs v-model="activeName">
     <el-tab-pane label="热门" name="first">
-      <div class="row" v-for="pop in popular" :key="pop.articleId">
+      <div v-if="popular.length===0" style="text-align: center">
+        <h3>＞﹏＜您 还 未 关 注 任 何 标 签＞﹏＜</h3>
+        <h4><router-link to="/subscribe"><span class="bt">去关注</span></router-link></h4>
+      </div>
+      <div class="row" v-else v-for="pop in popular" :key="pop.articleId">
         <div class="col-md-10">
           <div class="up">
             <img v-bind:src="pop.authorAvatar" class="avatar">
@@ -15,7 +19,10 @@
             </a>
           </div>
           <div class="down">
-            <span class="tsdown"><i class="far fa-heart"></i>&nbsp;{{pop.likeCount}}</span>
+            <span class="tsdown">
+              <span @click="deletelike(pop.articleId)" v-if="pop.status===1" style="color: #bd2c00">❤</span>
+              <span v-else @click="insertlike(pop.articleId)"><i class="far fa-heart" ></i>
+              </span>&nbsp;{{pop.likeCount}}</span>
             <span class="btn"></span>
             <span class="tsdown"><i class="fas fa-comment"></i>&nbsp;{{pop.commentCount}}</span>
           </div><hr/>
@@ -23,11 +30,14 @@
         <div class="col-md-2" v-if="pop.articlePic!=null">
           <img v-bind:src="pop.articlePic" class="img"/>
         </div>
-
       </div>
     </el-tab-pane>
     <el-tab-pane label="最新" name="second">
-      <div class="row" v-for="pop in newest" :key="pop.articleId">
+      <div v-if="newest.length===0" style="text-align: center">
+        <h3>＞﹏＜您 还 未 关 注 任 何 标 签＞﹏＜</h3>
+        <h4><router-link to="/subscribe"><span class="bt">去关注</span></router-link></h4>
+      </div>
+      <div class="row" v-else v-for="pop in newest" :key="pop.articleId">
         <div class="col-md-10">
           <div class="up">
             <img v-bind:src="pop.authorAvatar" class="avatar">
@@ -40,7 +50,10 @@
             </a>
           </div>
           <div class="down">
-            <span class="tsdown"><i class="far fa-heart"></i>&nbsp;{{pop.likeCount}}</span>
+            <span class="tsdown">
+              <span @click="deletelike(pop.articleId)" v-if="pop.status===1" style="color: #bd2c00">❤</span>
+              <span v-else @click="insertlike(pop.articleId)"><i class="far fa-heart" ></i>
+              </span>&nbsp;{{pop.likeCount}}</span>
             <span class="btn"></span>
             <span class="tsdown"><i class="fas fa-comment"></i>&nbsp;{{pop.commentCount}}</span>
           </div><hr/>
@@ -51,7 +64,11 @@
       </div>
     </el-tab-pane>
     <el-tab-pane label="评论" name="third">
-      <div class="row" v-for="pop in comment" :key="pop.articleId">
+      <div v-if="comment.length===0" style="text-align: center">
+        <h3>＞﹏＜您 还 未 关 注 任 何 标 签＞﹏＜</h3>
+        <h4><router-link to="/subscribe"><span class="bt">去关注</span></router-link></h4>
+      </div>
+      <div class="row" v-else v-for="pop in comment" :key="pop.articleId">
         <div class="col-md-10">
           <div class="up">
             <img v-bind:src="pop.authorAvatar" class="avatar">
@@ -64,7 +81,10 @@
             </a>
           </div>
           <div class="down">
-            <span class="tsdown"><i class="far fa-heart"></i>&nbsp;{{pop.likeCount}}</span>
+            <span class="tsdown">
+              <span @click="deletelike(pop.articleId)" v-if="pop.status===1" style="color: #bd2c00">❤</span>
+              <span v-else @click="insertlike(pop.articleId)"><i class="far fa-heart" ></i>
+              </span>&nbsp;{{pop.likeCount}}</span>
             <span class="btn"></span>
             <span class="tsdown"><i class="fas fa-comment"></i>&nbsp;{{pop.commentCount}}</span>
           </div><hr/>
@@ -110,6 +130,24 @@
           that.comment = response.data.data
         })
     },
+    methods:{
+      insertlike(articleId){
+        var that=this;
+        this.$http
+          .post('http://localhost:8080/articles/insertlike',{"userId":this.user.userId,"articleId":articleId})
+          .then(function (response) {
+            that.$router.go(0)
+          })
+      },
+      deletelike(articleId){
+        var that=this;
+        this.$http
+          .post('http://localhost:8080/articles/deletelike',{"userId":this.user.userId,"articleId":articleId})
+          .then(function (response) {
+            that.$router.go(0)
+          })
+      }
+    },
     filters: {
       formatDate(time) {
         var date = new Date(time);
@@ -154,5 +192,8 @@
     width: 35px;
     height: 35px;
     border-radius: 50%;
+  }
+  .bt{
+    color: #55a532;
   }
 </style>
