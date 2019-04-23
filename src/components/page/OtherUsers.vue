@@ -50,7 +50,7 @@
     created(){
       var that=this;
       this.$http
-        .post('http://localhost:8080/user/concern',{"userId":this.user.userId,"concerneduserId":this.id})
+        .post('http://localhost:8080/user/getUser',{"userId":this.user.userId,"concerneduserId":this.id})
         .then(function (response) {
           that.otherUser=response.data.data
         })

@@ -60,7 +60,7 @@
       this.$http
         .post("http://localhost:8080/topics/all",this.user)
         .then(function(res) {
-          that.topicList=res.data.data
+          that.topicList=res.data.data;
           for(var i=0;i<res.data.data.length;i++){
             if(res.data.data[i].status===1){
               that.topicedList.unshift(res.data.data[i])

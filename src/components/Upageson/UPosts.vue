@@ -2,7 +2,7 @@
     <div>
       <el-tabs v-model="activeName" tab-position="left" style="margin-top: 20px">
         <el-tab-pane label="热门" name="first">
-          <div v-if="popArticles.length===0" style="text-align: center">
+          <div v-if="popArticles.length===0" style="text-align: center;line-height: 200px">
             您 还 未 发 布 文 章
           </div>
           <div class="row" v-else v-for="pop in popArticles" :key="pop.articleId">
@@ -32,7 +32,7 @@
           </div>
         </el-tab-pane>
         <el-tab-pane label="最新" name="second">
-          <div v-if="newArticles.length===0" style="text-align: center">
+          <div v-if="newArticles.length===0" style="text-align: center;line-height: 200px">
             您 还 未 发 布 文 章
           </div>
           <div class="row" v-else v-for="pop in newArticles" :key="pop.articleId">

@@ -1,7 +1,7 @@
 <template>
-  <div class="topics">
-    <div class="title">
-      <span>更多话题</span>
+  <div class="topics" v-if="arr.length!==0">
+    <div class="title" >
+      <span>关注的话题</span>
       <router-link to="/topics"><span class="all">全部<li class="el-icon-arrow-right"></li></span></router-link>
     </div><hr/>
     <div class="body">
@@ -12,8 +12,8 @@
           </div>
           <div class="col-md-8">
             <span class="title">{{topic.topicName}}</span><br/>
-            <span class="follow">1关注·</span>
-            <span class="follow">1沸点</span>
+            <span class="follow">{{topic.fansCount}}关注·</span>
+            <span class="follow">{{topic.pinsCount}}沸点</span>
           </div>
           <div class="col-md-2"></div>
         </div>

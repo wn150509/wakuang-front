@@ -185,9 +185,9 @@
             }
           }
           /* 此处停留1秒刷新页面 */
-          // setTimeout(function(){
-          //   location.reload();
-          // },1000)
+          setTimeout(function(){
+            location.reload();
+          },1000)
         },
         //图片展示
         changeUpload (file, fileList){

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div v-if="popular.length===0" style="text-align: center">
+    <div v-if="popular.length===0" style="text-align: center;line-height: 200px">
       (→_→) 您 还 没 有 赞 过 文 章 呢 ？
     </div>
     <div class="row" v-for="pop in popular" :key="pop.articleId">
