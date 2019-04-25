@@ -24,7 +24,9 @@
         </div>
         <span class="btn"></span>
         <div>
-          <el-button type="primary" size="mini" plain round>{{pinvo.topics.topicName}}</el-button>
+          <a :href="'/topic/'+pinvo.topics.topicId">
+            <el-button type="primary" size="mini" plain round>{{pinvo.topics.topicName}}</el-button>
+          </a>
         </div>
         <div>
           <span class="tsdown">
@@ -160,4 +162,4 @@
     font-size: 15px;
     color: #909399;
   }
-</style>>
+</style>

@@ -486,9 +486,23 @@ export default new Router({
           ]
         },
         {
-          path:'/collection/:id',
+          path:'/topic/:id',
+          redirect:'topic/:id/tLike',
           component: resolve =>require(['../components/page/Collection.vue'],resolve),
-          meta:{title:'某个收藏'}
+          meta:{title:'某个话题'},
+          children:[
+            //某个话题二级导航
+            {
+              path:'/topic/:id/tLike',
+              component:resolve =>require(['../components/Tpageson/OneTopicByLike.vue'],resolve),
+              meta:{title:'热门'}
+            },
+            {
+              path:'/topic/:id/tTime',
+              component:resolve =>require(['../components/Tpageson/OneTopicByTime.vue'],resolve),
+              meta:{title:'最新'}
+            }
+          ]
         },
         {
           path:'/user/:id ',

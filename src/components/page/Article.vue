@@ -3,26 +3,32 @@
     <div class="col-md-1"></div>
     <div class="col-md-7">
       <div class="row">
-        <div class="col-md-1"><img :src="Article.sysUser.userAvatar" class="avatar"/></div>
-        <div class="col-md-8">
-          <div style="font-weight: bold">{{Article.sysUser.userName}}</div>
-          <div style="font-size: 15px;color: #909399">{{Article.articles.createTime | formatDate}}</div>
+        <div class="col-md-1"><img :src="Article.userStatus.userAvatar" class="avatar"/></div>
+        <div class="col-md-7">
+          <div style="font-weight: bold">{{Article.userStatus.userName}}</div>
+          <div style="font-size: 15px;color: #909399">{{Article.articleStatus.createTime | formatDate}}</div>
         </div>
-        <div class="col-md-3"></div>
+        <div class="col-md-2" v-if="Article.userStatus.userId!==user.userId">
+          <button class="guanzhu2" v-if="Article.userStatus.status===1" @click="deleteuser(Article.userStatus.userId)">已关注</button>
+          <button class="guanzhu1" v-else @click="insertuser(Article.userStatus.userId)">关注</button>
+        </div>
+        <div class="col-md-2" v-else></div>
+        <div class="col-md-2">
+          <span @click="deletelike(Article.articleStatus.articleId)" v-if="Article.articleStatus.status===1" style="color: #bd2c00">❤</span>
+          <span v-else @click="insertlike(Article.articleStatus.articleId)"><i class="far fa-heart" ></i></span>&nbsp;{{Article.articleStatus.likeCount}}
+        </div>
       </div>
-      <div class="fenmian" v-if="Article.articles.articlePic!=null">
-        <img :src="Article.articles.articlePic" class="pic"/>
+      <div class="fenmian" v-if="Article.articleStatus.articlePic!=null">
+        <img :src="Article.articleStatus.articlePic" class="pic"/>
       </div>
       <div class="title">
-        <h2>{{Article.articles.articleTitle}}</h2>
+        <h2>{{Article.articleStatus.articleTitle}}</h2>
       </div>
       <div class="content">
-        <div v-html="html">
-
-        </div>
+        <div v-html="html"></div>
       </div>
       <div class="comment">
-        <p style="text-align: center;font-size: 18px;color: #C0C4CC">评  论</p>
+        <p style="text-align: center;font-size: 20px;color: #C0C4CC">评<span class="btn"></span>论</p>
         <!--<div class="row">-->
           <!--<div class="col-md-2">-->
 
@@ -58,13 +64,18 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4" style="background-color: #795da3">
-      <div class="selfMessage" style="background-color: #55a532">2</div>
+    <div class="col-md-4">
+      <div class="selfMessage">
+        <v-author-message></v-author-message>
+        <v-relative-articles></v-relative-articles>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+  import vAuthorMessage from '../ArticleRightModel/AuthorMessage.vue';
+  import vRelativeArticles from '../ArticleRightModel/RelativeArticles.vue';
   import {formatDate} from "../../../static/js/date";
   export default {
     data(){
@@ -80,17 +91,53 @@
         addcomment:''
       }
     },
+    components:{
+      vAuthorMessage,
+      vRelativeArticles
+    },
     created:function () {
       var that=this;
       this.$http
-        .get("http://localhost:8080/articles/article/"+this.id)
+        .post("http://localhost:8080/articles/oneArticle/",{"userId":this.user.userId,"articleId":this.id})
         .then(function (res) {
           that.Article=res.data.data;
-          that.html=res.data.data.articles.articleContent
+          that.html=res.data.data.articleStatus.articleContent
         });
-      this.getData()
+      // this.getData()
     },
     methods:{
+      insertuser(userId){
+        var that=this;
+        this.$http
+          .post('http://localhost:8080/user/insertuser',{"userId":this.user.userId,"concerneduserId":userId})
+          .then(function (response) {
+            that.$router.go(0)
+          })
+      },
+      deleteuser(userId){
+        var that=this;
+        this.$http
+          .post('http://localhost:8080/user/deleteuser',{"userId":this.user.userId,"concerneduserId":userId})
+          .then(function (response) {
+            that.$router.go(0)
+          })
+      },
+      insertlike(articleId){
+        var that=this;
+        this.$http
+          .post('http://localhost:8080/articles/insertlike',{"userId":this.user.userId,"articleId":articleId})
+          .then(function (response) {
+            that.$router.go(0)
+          })
+      },
+      deletelike(articleId){
+        var that=this;
+        this.$http
+          .post('http://localhost:8080/articles/deletelike',{"userId":this.user.userId,"articleId":articleId})
+          .then(function (response) {
+            that.$router.go(0)
+          })
+      },
       addComment(){
         var that=this;
         if(this.addcomment=== ''){
@@ -108,14 +155,14 @@
             });
         }
       },
-      getData(){
-        var that=this;
-        this.$http
-          .get("http://localhost:8080/articles/comment/"+this.id)
-          .then(function (res) {
-            that.comment=res.data.data;
-          })
-      }
+      // getData(){
+      //   var that=this;
+      //   this.$http
+      //     .get("http://localhost:8080/articles/comment/"+this.id)
+      //     .then(function (res) {
+      //       that.comment=res.data.data;
+      //     })
+      // }
     },
     mounted:function () {
 
@@ -168,5 +215,29 @@
   }
   .comment{
     margin-top: 15%;
+  }
+  .guanzhu1{
+    width: 80px;
+    height: 35px;
+    border-radius: 5%;
+    color: #67C23A;
+    border: 2px solid #67C23A;
+    background-color: transparent;
+    overflow: hidden;
+    padding: 0;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .guanzhu2{
+    border: none;
+    width: 80px;
+    height: 35px;
+    border-radius: 5%;
+    color: white;
+    overflow: hidden;
+    padding: 0;
+    text-transform: uppercase;
+    cursor: pointer;
+    background-color: #67C23A;
   }
 </style>

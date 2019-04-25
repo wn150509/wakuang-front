@@ -5,19 +5,19 @@
       <router-link to="/topics"><span class="all">全部<li class="el-icon-arrow-right"></li></span></router-link>
     </div><hr/>
     <div class="body">
-      <a :href="'#'">
-        <div class="row" v-for="topic in arr" :key="topic.topicId">
-          <div class="col-md-2">
+      <div class="row" v-for="topic in arr" :key="topic.topicId">
+        <div class="col-md-2">
+          <a :href=" '/topic/'+ topic.topicId ">
             <img v-bind:src="topic.topicUrl">
-          </div>
-          <div class="col-md-8">
-            <span class="title">{{topic.topicName}}</span><br/>
-            <span class="follow">{{topic.fansCount}}关注·</span>
-            <span class="follow">{{topic.pinsCount}}沸点</span>
-          </div>
-          <div class="col-md-2"></div>
+          </a>
         </div>
-      </a>
+        <div class="col-md-8">
+          <span class="title">{{topic.topicName}}</span><br/>
+          <span class="follow">{{topic.fansCount}}关注·</span>
+          <span class="follow">{{topic.pinsCount}}沸点</span>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
     </div>
   </div>
 </template>

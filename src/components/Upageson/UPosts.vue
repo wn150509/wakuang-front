@@ -83,7 +83,6 @@
         .post('http://localhost:8080/articles/selfArticlesbylike',this.user)
         .then(function (res) {
           that.popArticles=res.data.data;
-          console.log(that.popArticles.length)
         });
       this.$http
         .post('http://localhost:8080/articles/selfArticlesbytime',this.user)
