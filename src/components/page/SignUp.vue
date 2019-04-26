@@ -43,9 +43,10 @@
               placeholder="手机验证码"
               prefix-icon="el-icon-yanzhengma"
               suffix-icon=""
-              v-model="checkpassword">
+              v-model="checkCode">
             </el-input>
-            <div class="aButton">发送验证码</div>
+            <div class="aButton" @click="check(phone)" v-if="code===''">发送验证码</div>
+            <div class="aButton" v-else>已发送</div>
           </div>
 
           <div class="demo-input-suffix">
@@ -56,8 +57,7 @@
               v-model="password">
             </el-input>
           </div>
-
-          <button class="sign-in-button" id="sign-in-form-submit-btn" type="button" @click="onClick(phone,password)">
+          <button class="sign-in-button" id="sign-in-form-submit-btn" type="button" @click="onClick(password)">
             <span id="sign-in-loading"></span>
             注册
           </button>
@@ -78,14 +78,27 @@
         name:'',
         phone:'',
         password:'',
-        checkpassword:''
+        checkCode:'',
+        code:''
       }
     },
     methods: {
-      onClick(phone,password) {
-        var that = this;
+      check(phone){
+        var that=this;
         if(!this.isPhoneAvailable(phone)){
           this.$message.error("请输入正确的手机号码")
+        } else {
+          this.$http
+            .post('http://localhost:8080/user/checkCode',{"email":this.phone})
+            .then(function (res) {
+              that.code=res.data.data;
+            })
+        }
+      },
+      onClick(password) {
+        var that = this;
+        if(this.code!==this.checkCode){
+          this.$message.error("验证码错误！！")
         } else {
           if(!this.isPasswordAvailable(password)){
             this.$message.error("请输入六位纯数字密码")
@@ -96,7 +109,12 @@
                   "email":this.phone,
                   "password": this.password})
               .then(function (response) {
-                that.$router.push("/sign_in")
+                if (response.data.code===1){
+                  that.$message.error("该账号已被注册！！");
+                  that.$router.go(0)
+                }else {
+                  that.$router.push("/sign_in")
+                }
               })
           }
         }

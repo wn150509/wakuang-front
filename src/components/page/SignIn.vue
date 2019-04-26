@@ -45,7 +45,7 @@
           <div class="forget-btn">
             <a @click="dialogVisible=true">忘记密码？</a>
           </div>
-          <button class="sign-in-button" id="sign-in-form-submit-btn" type="button" @click="onClick">
+          <button class="sign-in-button" id="sign-in-form-submit-btn" type="button" @click="onClick(phone)">
             <span id="sign-in-loading"></span>登录
           </button>
         </form>
@@ -104,22 +104,33 @@
       }
     },
     methods: {
-      onClick() {
+      onClick(phone) {
         var that = this;
-        this.$http
-          .post('http://localhost:8080/user/sign_in',
-            {"email": this.phone,"password": this.password})
-          .then(function (response) {
-            if (response.data.data===null){
-              alert("账号或密码不正确！！");
-              that.$route.go(0)
-            }else {
-              localStorage.setItem("loginUser", JSON.stringify(response.data.data));
-              that.$router.push("/")
-            }
-          })
+        if(!this.isPhoneAvailable(phone)) {
+          this.$message.error("手机号格式错误！！！")
+        }else {
+          this.$http
+            .post('http://localhost:8080/user/sign_in',
+              {"email": this.phone,"password": this.password})
+            .then(function (response) {
+              if (response.data.data===null){
+                alert("账号或密码不正确！！");
+                that.$router.go(0)
+              }else {
+                localStorage.setItem("loginUser", JSON.stringify(response.data.data));
+                that.$router.push("/")
+              }
+            })
+        }
       },
-
+      isPhoneAvailable(pone) {
+        var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+        if (!myreg.test(pone)) {
+          return false;
+        } else {
+          return true;
+        }
+      },
     }
   }
 </script>

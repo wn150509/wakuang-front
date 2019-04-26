@@ -13,12 +13,22 @@
           <el-form-item label="手机号:">
             <el-input v-model.number="form.phone"></el-input>
           </el-form-item>
+          <el-form-item label="验证码:">
+            <el-col :span="11">
+              <el-input v-model="form.checkCode"></el-input>
+            </el-col>
+            <el-col :span="1" class="line">&nbsp;</el-col>
+            <el-col :span="11">
+              <el-button type="primary" size="mini" plain @click="check(form.phone)" v-if="code===''">发送验证码</el-button>
+              <el-button type="primary" size="mini" plain v-else>已发送</el-button>
+            </el-col>
+          </el-form-item>
           <el-form-item label="密码:">
             <el-input type="password" v-model="form.password"></el-input>
           </el-form-item>
         </el-form>
         <div class="down">
-          <el-button type="primary" @click="onClick(form.phone,form.password)" class="qb">注册&nbsp;&nbsp;></el-button>
+          <el-button type="primary" @click="onClick(form.password)" class="qb">注册&nbsp;&nbsp;></el-button>
         </div>
       </div>
     </div>
@@ -32,15 +42,29 @@
         form:{
           userName:'',
           phone:'',
-          password:''
-        }
+          password:'',
+          checkCode:''
+        },
+        code:''
       }
     },
     methods: {
-      onClick(phone,password) {
-        var that = this;
+      check(phone){
+        var that=this;
         if(!this.isPhoneAvailable(phone)){
           this.$message.error("请输入正确的手机号码")
+        } else {
+          this.$http
+            .post('http://localhost:8080/user/checkCode',{"email":this.phone})
+            .then(function (res) {
+              that.code=res.data.data;
+            })
+        }
+      },
+      onClick(password) {
+        var that = this;
+        if(this.code!==this.form.checkCode){
+          this.$message.error("验证码错误！！")
         } else {
           if(!this.isPasswordAvailable(password)){
             this.$message.error("请输入六位纯数字密码")
@@ -51,7 +75,12 @@
                   "email":this.form.phone,
                   "password": this.form.password})
               .then(function (response) {
-                that.$router.push("/sign_in")
+                if (response.data.code===1){
+                  that.$message.error("该账号已被注册！！");
+                  that.$router.go(0)
+                }else {
+                  that.$router.push("/sign_in")
+                }
               })
           }
         }

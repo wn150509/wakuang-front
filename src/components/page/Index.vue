@@ -39,7 +39,7 @@
       <div class="col-md-4">
         <v-register v-if="user===null"></v-register>
         <v-author></v-author>
-        <v-books></v-books>
+        <v-books v-if="user!==null"></v-books>
         <!--<v-others class="others"></v-others>-->
       </div>
     </div>
