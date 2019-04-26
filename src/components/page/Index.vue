@@ -39,7 +39,7 @@
       <div class="col-md-4">
         <v-register v-if="user===null"></v-register>
         <v-author></v-author>
-        <!--<v-books></v-books>-->
+        <v-books></v-books>
         <!--<v-others class="others"></v-others>-->
       </div>
     </div>
@@ -49,8 +49,8 @@
 <script>
   import vTHeader from '../twohead/THeader.vue'
   import vAuthor from '../IndexRightModel/Author.vue'
-  // import vBooks from  '../IndexRightModel/Books.vue'
-  import vOthers from '../IndexRightModel/OtherModel.vue'
+  import vBooks from  '../IndexRightModel/Books.vue'
+  // import vOthers from '../IndexRightModel/OtherModel.vue'
   import vRegister from '../IndexRightModel/Register.vue'
   export default {
     data() {
@@ -65,8 +65,8 @@
     components: {
       vTHeader,
       vAuthor,
-      // vBooks,
-      vOthers,
+      vBooks,
+      // vOthers,
       vRegister
     }
   }

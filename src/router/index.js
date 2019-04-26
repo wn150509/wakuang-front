@@ -506,7 +506,7 @@ export default new Router({
         },
         {
           path:'/user/:id ',
-          redirect:'/user/:id/activities',
+          redirect:'/user/:id/posts',
           component:resolve =>require(['../components/dropdownpage/User.vue'],resolve),
           meta:{title:'个人主页'},
           children:[
@@ -560,7 +560,7 @@ export default new Router({
         },
         {
           path:'/ou/:id',
-          redirect:'/ou/:id/activities',
+          redirect:'/ou/:id/posts',
           component:resolve =>require(['../components/page/OtherUsers.vue'],resolve),
           meta:{title:'某个作者'},
           children:[

@@ -1,23 +1,22 @@
 <template>
   <div class="books">
     <div class="tou">
-      <span>挖矿小册</span>
+      <span>热门标签</span>
     </div><hr/>
     <div class="body">
       <div class="row" v-for="index in arr">
         <div class="col-md-4">
-          <img :src="Books[index].booksAvatar" class="bookpic"/>
+          <a :href="'/tag/'+Labels[index].labelsId">
+            <img :src="Labels[index].labelsUrl" class="labelUrl"/>
+          </a>
         </div>
         <div class="col-md-8">
-          <p class="bookstitle">{{Books[index].booksTitle}}</p>
-          <span class="price">￥{{Books[index].booksPrice}}</span>
+          <p class="labelName">{{Labels[index].labelsName}}</p>
         </div>
       </div>
-      <div>
-        <router-link to="/books/all">
-          <b-button variant="outline-secondary" class="qb">
-            查看全部&nbsp;&nbsp;>
-          </b-button>
+      <div class="down">
+        <router-link to="/subscribe">
+          <b-button variant="outline-secondary" class="qb">查看全部&nbsp;&nbsp;></b-button>
         </router-link>
       </div>
     </div>
@@ -28,16 +27,16 @@
   export default {
     data() {
       return {
-        Books: [],
+        Labels: [],
         arr:[0,1,2,3]
       }
     },
     created() {
       var that = this
       this.$http
-        .get('http://localhost:8080/books/type1')
+        .get('http://localhost:8080/labels/all')
         .then(function (response) {
-          that.Books = response.data.data;
+          that.Labels = response.data.data;
         })
     },
     methods:{
@@ -45,7 +44,7 @@
         var a = [];
         var j= 0;
         while(j<4){
-          var b = Math.floor((Math.random()*this.Books.length));
+          var b = Math.floor((Math.random()*this.Labels.length));
           if(a.indexOf(b)===-1){
             a.push(b);
             j++;
@@ -64,23 +63,25 @@
     box-shadow: 0 0 8px rgba(0,0,0,.1);
     width: 280px;
   }
-  .bookpic{
-    width: 50px;
-    height: 80px;
+  .labelUrl{
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+  }
+  .col-md-8 p{
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 5%;
   }
   .row{
     padding: 8px;
   }
   .qb{
-    margin-top: 15px;
-    width: 270px;
+    width: 200px;
     height: 35px;
+    margin-bottom: 10px;
   }
-  .price{
-    color: #F56C6C;
-    font-size: 15px;
-  }
-  .bookstitle{
-    font-size: 15px;
+  .down{
+    text-align: center;
   }
 </style>

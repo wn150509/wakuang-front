@@ -57,7 +57,7 @@
             </el-input>
           </div>
 
-          <button class="sign-in-button" id="sign-in-form-submit-btn" type="button" @click="onClick">
+          <button class="sign-in-button" id="sign-in-form-submit-btn" type="button" @click="onClick(phone,password)">
             <span id="sign-in-loading"></span>
             注册
           </button>
@@ -82,16 +82,40 @@
       }
     },
     methods: {
-      onClick() {
+      onClick(phone,password) {
         var that = this;
-        this.$http
-          .post('http://localhost:8080/user/sign_up',
-            {"userName": this.name,
-              "email":this.phone,
-              "password": this.password})
-          .then(function (response) {
-            that.$router.push("/sign_in")
-          })
+        if(!this.isPhoneAvailable(phone)){
+          this.$message.error("请输入正确的手机号码")
+        } else {
+          if(!this.isPasswordAvailable(password)){
+            this.$message.error("请输入六位纯数字密码")
+          }else {
+            this.$http
+              .post('http://localhost:8080/user/sign_up',
+                {"userName": this.name,
+                  "email":this.phone,
+                  "password": this.password})
+              .then(function (response) {
+                that.$router.push("/sign_in")
+              })
+          }
+        }
+      },
+      isPhoneAvailable(pone) {
+        var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+        if (!myreg.test(pone)) {
+          return false;
+        } else {
+          return true;
+        }
+      },
+      isPasswordAvailable(password){
+        var reg = new RegExp(/^\d{6}$/);     //工作密码必须是6位数字
+        if(!reg.test(password)) {
+          return false;
+        }else {
+          return true;
+        }
       }
     }
   }

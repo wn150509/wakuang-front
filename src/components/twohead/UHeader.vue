@@ -1,18 +1,18 @@
 <template>
   <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
+    <!--<el-menu-item index="1">-->
+      <!--<router-link :to="'/user/'+user.userId+'/activities'">动态</router-link>-->
+    <!--</el-menu-item>-->
     <el-menu-item index="1">
-      <router-link :to="'/user/'+user.userId+'/activities'">动态</router-link>
-    </el-menu-item>
-    <el-menu-item index="2">
       <router-link :to="'/user/'+user.userId+'/posts'">专栏</router-link>
     </el-menu-item>
-    <el-menu-item index="3">
+    <el-menu-item index="2">
       <router-link :to="'/user/'+user.userId+'/pins'">沸点</router-link>
     </el-menu-item>
     <!--<el-menu-item index="4">-->
       <!--<router-link :to="'/user/'+user.userId+'/shares'">分享</router-link>-->
     <!--</el-menu-item>-->
-    <el-menu-item index="4">
+    <el-menu-item index="3">
       <el-col :span="12">
         <el-dropdown trigger="click">
         <span class="el-dropdown-link">
@@ -33,7 +33,7 @@
       <!--<router-link :to=" '/user/'+user.userId+'/books'">小册</router-link>-->
     <!--</el-menu-item>-->
 
-    <el-menu-item index="5">
+    <el-menu-item index="4">
       <router-link :to=" '/user/'+user.userId+'/tags'">关注</router-link>
     </el-menu-item>
     <!--<el-menu-item index="7">-->

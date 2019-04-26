@@ -70,7 +70,7 @@
             <!--</b-dropdown-item>-->
 
             <b-dropdown-item>
-              <router-link :to=" '/user/'+user.userId+'/activities'"><i class="fas fa-user" style="color:#C0C4CC"></i>&nbsp;&nbsp;我的主页</router-link>
+              <router-link :to=" '/user/'+user.userId+'/posts'"><i class="fas fa-user" style="color:#C0C4CC"></i>&nbsp;&nbsp;我的主页</router-link>
             </b-dropdown-item>
             <b-dropdown-item>
               <router-link :to=" '/user/'+user.userId+ '/likes'">
@@ -143,8 +143,8 @@
     },
     methods: {
       logout() {
-        this.$router.push("/")
-        localStorage.removeItem('loginUser')
+        this.$router.push("/");
+        localStorage.removeItem('loginUser');
         this.$router.go(0);
       },
       open5() {
@@ -153,7 +153,6 @@
         });
       },
       search(){
-        console.log(this.searchValue);
         if(this.searchValue===''){
           this.$message.error("请输入搜索内容！！！")
         } else {

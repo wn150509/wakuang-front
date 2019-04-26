@@ -39,15 +39,12 @@
               v-model="password">
             </el-input>
           </div>
-
           <div class="remember-btn">
             <span>没有账号？</span><a href="/sign_up">注册</a>
           </div>
-
           <div class="forget-btn">
             <a @click="dialogVisible=true">忘记密码？</a>
           </div>
-
           <button class="sign-in-button" id="sign-in-form-submit-btn" type="button" @click="onClick">
             <span id="sign-in-loading"></span>登录
           </button>

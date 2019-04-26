@@ -9,7 +9,7 @@
 
     <div class="row" v-for="index in arr" :key="hotUsers[index].userId">
       <div class="col-md-2" v-if="hotUsers[index].userId===user.userId">
-        <a :href="'/user/'+user.userId+'/activities'">
+        <a :href="'/user/'+user.userId+'/posts'">
           <img :src="hotUsers[index].userAvatar" class="userAvatar">
         </a>
       </div>

@@ -81,7 +81,6 @@
         <el-tab-pane label="最新" name="second">
           <div v-if="oneTopicVo.pinVoListByTime.length===0" style="text-align: center">
             <h3>＞﹏＜列 表 为 空＞﹏＜</h3>
-            <h4><router-link to="/subscribe"><span class="bt">去关注</span></router-link></h4>
           </div>
           <div v-for="pinvo in oneTopicVo.pinVoListByTime" :key="pinvo.pinStatus.pinId" class="pinvo">
             <div class="row">
@@ -121,9 +120,86 @@
     </div>
 
     <div class="col-md-4">
-      <div class="selfMessage" style="background-color: #0086b3">
-        <div>话题详情</div>
-        <div>参与人数{{oneTopicVo.userStatusList.length}}</div>
+      <div class="selfMessage">
+        <div class="up">
+          <img v-bind:src="oneTopicVo.topicStatus.topicUrl">
+          <p>{{oneTopicVo.topicStatus.topicName}}</p>
+          <button class="tguanzhu2" v-if="oneTopicVo.topicStatus.status===1" @click="deleteuser(oneTopicVo.topicStatus.topicId)">已关注</button>
+          <button class="tguanzhu1" v-else @click="insertuser(oneTopicVo.topicStatus.topicId)">关注</button>
+        </div>
+        <div class="center">
+          <h5>话题介绍：</h5>
+          <p>{{oneTopicVo.topicStatus.topicDescription}}</p>
+        </div><hr/>
+        <div class="row">
+          <div class="col-md-5">
+            <h5>{{oneTopicVo.pinVoListByLike.length}}</h5>
+            <p>沸点</p>
+          </div>
+          <div class="col-md-2">｜</div>
+          <div class="col-md-5">
+            <h5>{{oneTopicVo.userStatusList.length}}</h5>
+            <p>关注</p>
+          </div>
+        </div>
+      </div>
+      <div class="selfMessage">
+        <div class="tou">
+          <p>共有{{oneTopicVo.userStatusList.length}}人参加</p>
+        </div><hr/>
+        <div class="body">
+          <div class="row">
+            <div class="col-md-3" v-for="i in users">
+              <div v-if="i.userId===user.userId">
+                <a :href="'/user/'+user.userId+'/posts'">
+                  <el-tooltip class="item" effect="dark" :content="i.userPosition" placement="top-start">
+                    <img :src="i.userAvatar" class="userPic"/>
+                  </el-tooltip>
+                </a>
+                <el-tooltip class="item" effect="dark" :content="i.userName" placement="top-start">
+                  <p>{{i.userName}}</p>
+                </el-tooltip>
+              </div>
+              <div v-else>
+              <a :href=" '/ou/'+i.userId">
+              <el-tooltip class="item" effect="dark" :content="i.userPosition" placement="top-start">
+              <img :src="i.userAvatar" class="userPic"/>
+              </el-tooltip>
+              </a>
+                <el-tooltip class="item" effect="dark" :content="i.userName" placement="top-start">
+                  <p>{{i.userName}}</p>
+                </el-tooltip>
+              </div>
+            </div>
+          </div>
+          <div class="down">
+            <b-button @click="dialogTableVisible = true" variant="outline-secondary" class="qb">查看全部&nbsp;&nbsp;></b-button>
+
+            <el-dialog title="全部参与者" width="70%" :visible.sync="dialogTableVisible">
+              <el-table :data="users">
+                <el-table-column property="userId" align="center" label="用户Id" width="80"></el-table-column>
+                <el-table-column align="center" label="用户头像">
+                  <template slot-scope="scope">
+                    <div v-if="scope.row.userId===user.userId">
+                      <a :href="'/user/'+user.userId+'/posts'">
+                        <img :src="scope.row.userAvatar" class="pic"/>
+                      </a>
+                    </div>
+                    <div v-else>
+                      <a :href="'/ou/'+scope.row.userId">
+                        <img :src="scope.row.userAvatar" class="pic"/>
+                      </a>
+                    </div>
+                  </template>
+                </el-table-column>
+                <el-table-column property="userName" align="center" label="姓名"></el-table-column>
+                <el-table-column property="description" align="center" label="简介"></el-table-column>
+                <el-table-column property="userCompany" align="center" label="公司"></el-table-column>
+                <el-table-column property="userPosition" align="center" label="职位"></el-table-column>
+              </el-table>
+            </el-dialog>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -137,26 +213,35 @@
         id:this.$route.params.id,
         user:JSON.parse(localStorage.getItem('loginUser')),
         activeName:'first',
+        dialogTableVisible:false,
         imageUrl:'',
         form: {
           content: '',
           pinUrl: ''
         },
-        oneTopicVo:{}
+        oneTopicVo:{},
+        users:[]
       }
-    },
-    components:{
-
     },
     created(){
       var that=this;
       this.$http
         .post('http://localhost:8080/topics/oneTopic',{"userId":this.user.userId,"topicId":this.id})
         .then(function (res) {
-          that.oneTopicVo=res.data.data
+          that.oneTopicVo=res.data.data;
+          if(res.data.data.userStatusList.length<12){
+            for(var i=0;i<res.data.data.userStatusList.length;i++){
+              that.users.unshift(res.data.data.userStatusList[i])
+            }
+          }else {
+            for(var i=0;i<12;i++){
+              that.users.unshift(res.data.data.userStatusList[i])
+            }
+          }
         })
     },
     methods: {
+      //提交
       onSubmit() {
         if(this.form.content===''){
           this.Title();
@@ -179,6 +264,7 @@
           message: '请输入内容！！！'
         });
       },
+      //向后台提交文件及参数
       uploadFile() {
         const file = this.$refs.upload.uploadFiles[0];
         var data;
@@ -238,6 +324,7 @@
       changeUpload (file, fileList){
         this.imageUrl=URL.createObjectURL(file.raw);
       },
+      //关注作者
       insertuser(userId){
         var that=this;
         this.$http
@@ -246,6 +333,7 @@
             that.$router.go(0)
           })
       },
+      //取关作者
       deleteuser(userId){
         var that=this;
         this.$http
@@ -254,6 +342,7 @@
             that.$router.go(0)
           })
       },
+      //沸点点赞
       insertlike(pinId){
         var that=this;
         this.$http
@@ -262,11 +351,30 @@
             that.$router.go(0)
           })
       },
+      //取消沸点点赞
       deletelike(pinId){
         var that=this;
         this.$http
           .post('http://localhost:8080/pin/deletePinUser',{"userId":this.user.userId,"pinId":pinId})
           .then(function (response) {
+            that.$router.go(0)
+          })
+      },
+      //关注话题
+      insertTopic(topicId){
+        var that=this
+        this.$http
+          .post("http://localhost:8080/topics/inserttopic",{"userId":this.user.userId,"topicId":topicId})
+          .then(function (res) {
+            that.$router.go(0)
+          })
+      },
+      //取关话题
+      deleteTopic(topicId){
+        var that=this
+        this.$http
+          .post("http://localhost:8080/topics/deletetopic",{"userId":this.user.userId,"topicId":topicId})
+          .then(function (res) {
             that.$router.go(0)
           })
       }
@@ -281,6 +389,74 @@
 </script>
 
 <style scoped>
+  .tou p{
+    font-size: 16px;
+    font-weight: bold;
+    text-indent: 30px;
+    margin-top: 15px;
+  }
+
+  .row .col-md-5{
+    text-align: center;
+  }
+  .row .col-md-5 p{
+    margin-top: -5px;
+    font-size: 13px;
+    color: #969896;
+  }
+  .row .col-md-5 h5{
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .row .col-md-2{
+    text-align: center;
+  }
+  .center h5{
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 2%;
+    text-indent: 20px;
+  }
+  .center p{
+    font-size: 15px;
+    text-indent: 20px;
+  }
+  .up{
+    text-align: center;
+  }
+  .up img{
+    width: 60px;
+    height: 60px;
+    margin-top: 10%;
+  }
+  .up p{
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .tguanzhu1{
+    width: 90px;
+    height: 28px;
+    border-radius: 5px;
+    color: #67C23A;
+    border: 2px solid #67C23A;
+    background-color: transparent;
+    overflow: hidden;
+    padding: 0;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .tguanzhu2{
+    border: none;
+    width: 90px;
+    height: 28px;
+    border-radius: 5px;
+    color: white;
+    overflow: hidden;
+    padding: 0;
+    text-transform: uppercase;
+    cursor: pointer;
+    background-color: #67C23A;
+  }
   .title{
     font-size: 20px;
     margin-top: 2%;
@@ -322,9 +498,8 @@
   }
   .selfMessage{
     margin: 5px 15px;
+    background-color: #F8F8F8;
   }
-
-
   .pinvo{
     margin-top: 4%;
   }
@@ -383,5 +558,33 @@
   .tsdown{
     font-size: 15px;
     color: #909399;
+  }
+  .col-md-3{
+    text-align: center;
+  }
+  .col-md-3 p{
+    font-size: 14px;
+    font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .userPic{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  .qb{
+    margin-top: 15px;
+    width: 200px;
+    height: 35px;
+  }
+  .down{
+    text-align: center;
+  }
+  .pic{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
   }
 </style>
