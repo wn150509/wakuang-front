@@ -7,36 +7,43 @@
         <span>{{labelVo.labelStatus.articleCount}}文章</span>
       </div>
     </div>
-
     <div class="container">
       <div class="row">
         <div class="col-md-1">
           <img v-bind:src="labelVo.labelStatus.labelsUrl" class="labelurl">
         </div>
         <div class="col-md-10">
-          <button class="guanzhu2" v-if="labelVo.labelStatus.status==1" @click="deletelabel(labels.labelsId)">已关注</button>
+          <button class="guanzhu2" v-if="labelVo.labelStatus.status===1" @click="deletelabel(labels.labelsId)">已关注</button>
           <button class="guanzhu1" v-else @click="insertlabel(labels.labelsId)">关注</button>
         </div>
         <div class="col-md-1"></div>
       </div>
-      <div class="row" v-for="article in labelVo.articlesList" :key="article.articleId">
+      <div v-if="labelVo.articleStatusList.length===0" style="text-align: center">
+        <h3>＞﹏＜该 标 签 下 没 有 文 章＞﹏＜</h3>
+      </div>
+      <div class="row" v-else v-for="pop in labelVo.articleStatusList" :key="pop.articleId">
         <div class="col-md-10">
           <div class="up">
-            <img v-bind:src="article.authorAvatar" class="avatar">
-            <span class="tsup">·&nbsp;{{article.articleAuthor}}&nbsp;·</span>
-            <span class="tsup">{{article.createTime | formatDate}}</span>
+            <img v-bind:src="pop.authorAvatar" class="avatar">
+            <span class="tsup">·&nbsp;{{pop.articleAuthor}}&nbsp;·</span>
+            <span class="tsup">{{pop.createTime | formatDate}}</span>
           </div>
           <div class="center">
-            <p class="tscenter">{{article.articleTitle}}</p>
+            <a :href=" '/p/'+pop.articleId">
+              <p class="tscenter">{{pop.articleTitle}}</p>
+            </a>
           </div>
           <div class="down">
-            <span class="tsdown"><i class="far fa-heart"></i>&nbsp;{{article.likeCount}}</span>
+            <span class="tsdown">
+              <span @click="deletelike(pop.articleId)" v-if="pop.status===1" style="color: #bd2c00">❤</span>
+              <span v-else @click="insertlike(pop.articleId)"><i class="far fa-heart" ></i>
+              </span>&nbsp;{{pop.likeCount}}</span>
             <span class="btn"></span>
-            <span class="tsdown"><i class="fas fa-comment"></i>&nbsp;{{article.commentCount}}</span>
+            <span class="tsdown"><i class="fas fa-comment"></i>&nbsp;{{pop.commentCount}}</span>
           </div><hr/>
         </div>
-        <div class="col-md-2" v-if="article.articlePic!=null">
-          <img v-bind:src="article.articlePic" class="img"/>
+        <div class="col-md-2" v-if="pop.articlePic!=null">
+          <img v-bind:src="pop.articlePic" class="img"/>
         </div>
       </div>
     </div>
@@ -57,7 +64,7 @@
       var that=this
       this.$http
         .post('http://localhost:8080/labels/findonelabel',{
-          "labelId":this.$route.params.id ,"userId":this.user.userId
+          "labelId":this.id ,"userId":this.user.userId
         })
         .then(function (response) {
           that.labelVo=response.data.data
@@ -79,6 +86,22 @@
           .then(function (response) {
             that.$router.go(0)
           })
+      },
+      insertlike(articleId){
+        var that=this;
+        this.$http
+          .post('http://localhost:8080/articles/insertlike',{"userId":this.user.userId,"articleId":articleId})
+          .then(function (response) {
+            that.$router.go(0)
+          })
+      },
+      deletelike(articleId){
+        var that=this;
+        this.$http
+          .post('http://localhost:8080/articles/deletelike',{"userId":this.user.userId,"articleId":articleId})
+          .then(function (response) {
+            that.$router.go(0)
+          })
       }
     },
     filters: {
@@ -91,8 +114,23 @@
 </script>
 
 <style scoped>
+  a {
+    color: #324157;
+    text-decoration: none;
+  }
+  .img{
+    width: 70px;
+    height: 70px;
+  }
+  .tsup{
+    font-size: 12px;
+    color: #909399;
+  }
   .row{
-    margin-top: 2%;
+    margin-top: 10px;
+  }
+  .col-md-2{
+    text-align: center;
   }
   .top{
     width: 100%;
@@ -145,10 +183,6 @@
     width: 70px;
     height: 70px;
     margin-top: 20%;
-  }
-  .tsup{
-    font-size: 12px;
-    color: #909399;
   }
   .tscenter{
     font-size: 20px;
