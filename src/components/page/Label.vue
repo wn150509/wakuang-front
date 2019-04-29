@@ -13,8 +13,8 @@
           <img v-bind:src="labelVo.labelStatus.labelsUrl" class="labelurl">
         </div>
         <div class="col-md-10">
-          <button class="guanzhu2" v-if="labelVo.labelStatus.status===1" @click="deletelabel(labels.labelsId)">已关注</button>
-          <button class="guanzhu1" v-else @click="insertlabel(labels.labelsId)">关注</button>
+          <button class="guanzhu2" v-if="labelVo.labelStatus.status===1" @click="deletelabel(labelVo.labelStatus.labelsId)">已关注</button>
+          <button class="guanzhu1" v-else @click="insertlabel(labelVo.labelStatus.labelsId)">关注</button>
         </div>
         <div class="col-md-1"></div>
       </div>

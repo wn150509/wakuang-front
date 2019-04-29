@@ -69,12 +69,74 @@
               </a>
             </div>
             <div>
-          <span class="tsdown">
+              <el-collapse accordion>
+                <el-collapse-item>
+                  <template slot="title">
+                <span class="tsdown">
               <span @click="deletelike(pinvo.pinStatus.pinId)" v-if="pinvo.pinStatus.status===1" style="color: #bd2c00">❤</span>
               <span v-else @click="insertlike(pinvo.pinStatus.pinId)"><i class="far fa-heart" ></i>
               </span>&nbsp;{{pinvo.pinStatus.likeCount}}</span>
-              <span class="btn"></span>
-              <span class="tsdown"><i class="fas fa-comment"></i>&nbsp;{{pinvo.pinStatus.commentCount}}</span>
+                    <span class="btn"></span>
+                    <span class="tsdown" @click="getPinComments(pinvo.pinStatus.pinId)"><i class="fas fa-comment"></i>&nbsp;{{pinvo.pinStatus.commentCount}}</span>
+                  </template>
+                  <div class="commentBox">
+                <textarea class="form-control"
+                          rows="1" placeholder="说点什么吧..."
+                          maxlength="50" v-model="input_comment">
+                </textarea>
+                    <div class="fabiao">
+                      <span><span class="pull-right">还能输入</span><b style="color:red">{{surplus}}</b>/{{total}}</span>
+                      <input type="button" class="btn btn-primary" :disabled="display" value="发表" @click="btnsend(pinvo.pinStatus.pinId)">
+                    </div>
+                    <div class="commentContent">
+                      <div v-for="item in comments" :key="item.commentId">
+                        <table class="tb_comment table table-condensed">
+                          <tbody>
+                          <tr>
+                            <td class="tb_user" v-if="item.userStatus.userId===user.userId">
+                              <a :href="'/user/'+user.userId+'/posts'">
+                                <img class="img-circle" v-bind:src="item.userStatus.userAvatar">
+                              </a>
+                            </td>
+                            <td class="tb_user" v-else>
+                              <a :href=" '/ou/'+item.userStatus.userId">
+                                <img class="img-circle" v-bind:src="item.userStatus.userAvatar">
+                              </a>
+                            </td>
+                            <td>
+                              <p>{{item.userStatus.userName}} &nbsp;&nbsp;<i class="far fa-clock"></i>&nbsp;{{item.commentTime | formatDate}}
+                                <span class="btn"></span><span class="btn"></span><span class="btn"></span><span class="btn"></span><span class="btn"></span>
+                                <span class="pull-right">
+                        <a href="#" v-if="item.status===0" @click.prevent="btnsupport(pinvo.pinStatus.pinId,item.commentId)">👍🏻&nbsp;({{item.likeCount}})</a>
+                        <a href="#" v-else @click.prevent="btndislike(pinvo.pinStatus.pinId,item.commentId)">👍&nbsp;({{item.likeCount}})</a>
+                      </span>
+                              </p>
+                              <div class="row">
+                                <div class='col-md-10 div_comment_content'>
+                                  {{item.commentContent}}
+                                </div>
+                                <div style="float: right" class="col-md-2" v-if="item.userStatus.userId===user.userId">
+                                  <el-button type="danger" icon="el-icon-delete" circle @click="btndelete(pinvo.pinStatus.pinId,item.commentId)"></el-button>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <table class="tb_comment table table-condensed" v-if="comments.length===0">
+                        <tbody>
+                        <tr>
+                          <td class="text-muted" style="width:100%">
+                            <p style="text-align: center;font-size: 20px">☛ 暂无评论，抢个沙发吧☚</p>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </el-collapse-item>
+              </el-collapse>
             </div><hr/>
           </div>
         </el-tab-pane>
@@ -107,12 +169,74 @@
               </a>
             </div>
             <div>
-          <span class="tsdown">
+              <el-collapse accordion>
+                <el-collapse-item>
+                  <template slot="title">
+                <span class="tsdown">
               <span @click="deletelike(pinvo.pinStatus.pinId)" v-if="pinvo.pinStatus.status===1" style="color: #bd2c00">❤</span>
               <span v-else @click="insertlike(pinvo.pinStatus.pinId)"><i class="far fa-heart" ></i>
               </span>&nbsp;{{pinvo.pinStatus.likeCount}}</span>
-              <span class="btn"></span>
-              <span class="tsdown"><i class="fas fa-comment"></i>&nbsp;{{pinvo.pinStatus.commentCount}}</span>
+                    <span class="btn"></span>
+                    <span class="tsdown" @click="getPinComments(pinvo.pinStatus.pinId)"><i class="fas fa-comment"></i>&nbsp;{{pinvo.pinStatus.commentCount}}</span>
+                  </template>
+                  <div class="commentBox">
+                <textarea class="form-control"
+                          rows="1" placeholder="说点什么吧..."
+                          maxlength="50" v-model="input_comment">
+                </textarea>
+                    <div class="fabiao">
+                      <span><span class="pull-right">还能输入</span><b style="color:red">{{surplus}}</b>/{{total}}</span>
+                      <input type="button" class="btn btn-primary" :disabled="display" value="发表" @click="btnsend(pinvo.pinStatus.pinId)">
+                    </div>
+                    <div class="commentContent">
+                      <div v-for="item in comments" :key="item.commentId">
+                        <table class="tb_comment table table-condensed">
+                          <tbody>
+                          <tr>
+                            <td class="tb_user" v-if="item.userStatus.userId===user.userId">
+                              <a :href="'/user/'+user.userId+'/posts'">
+                                <img class="img-circle" v-bind:src="item.userStatus.userAvatar">
+                              </a>
+                            </td>
+                            <td class="tb_user" v-else>
+                              <a :href=" '/ou/'+item.userStatus.userId">
+                                <img class="img-circle" v-bind:src="item.userStatus.userAvatar">
+                              </a>
+                            </td>
+                            <td>
+                              <p>{{item.userStatus.userName}} &nbsp;&nbsp;<i class="far fa-clock"></i>&nbsp;{{item.commentTime | formatDate}}
+                                <span class="btn"></span><span class="btn"></span><span class="btn"></span><span class="btn"></span><span class="btn"></span>
+                                <span class="pull-right">
+                        <a href="#" v-if="item.status===0" @click.prevent="btnsupport(pinvo.pinStatus.pinId,item.commentId)">👍🏻&nbsp;({{item.likeCount}})</a>
+                        <a href="#" v-else @click.prevent="btndislike(pinvo.pinStatus.pinId,item.commentId)">👍&nbsp;({{item.likeCount}})</a>
+                      </span>
+                              </p>
+                              <div class="row">
+                                <div class='col-md-10 div_comment_content'>
+                                  {{item.commentContent}}
+                                </div>
+                                <div style="float: right" class="col-md-2" v-if="item.userStatus.userId===user.userId">
+                                  <el-button type="danger" icon="el-icon-delete" circle @click="btndelete(pinvo.pinStatus.pinId,item.commentId)"></el-button>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <table class="tb_comment table table-condensed" v-if="comments.length===0">
+                        <tbody>
+                        <tr>
+                          <td class="text-muted" style="width:100%">
+                            <p style="text-align: center;font-size: 20px">☛ 暂无评论，抢个沙发吧☚</p>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </el-collapse-item>
+              </el-collapse>
             </div><hr/>
           </div>
         </el-tab-pane>
@@ -124,8 +248,8 @@
         <div class="up">
           <img v-bind:src="oneTopicVo.topicStatus.topicUrl">
           <p>{{oneTopicVo.topicStatus.topicName}}</p>
-          <button class="tguanzhu2" v-if="oneTopicVo.topicStatus.status===1" @click="deleteuser(oneTopicVo.topicStatus.topicId)">已关注</button>
-          <button class="tguanzhu1" v-else @click="insertuser(oneTopicVo.topicStatus.topicId)">关注</button>
+          <button class="tguanzhu2" v-if="oneTopicVo.topicStatus.status===1" @click="deleteTopic(oneTopicVo.topicStatus.topicId)">已关注</button>
+          <button class="tguanzhu1" v-else @click="insertTopic(oneTopicVo.topicStatus.topicId)">关注</button>
         </div>
         <div class="center">
           <h5>话题介绍：</h5>
@@ -220,7 +344,11 @@
           pinUrl: ''
         },
         oneTopicVo:{},
-        users:[]
+        users:[],
+        disabled:true,
+        input_comment:'',
+        total: 50,// 评论可输入总字数
+        comments:[]
       }
     },
     created(){
@@ -241,6 +369,56 @@
         })
     },
     methods: {
+      getPinComments(pinId){
+        var that=this;
+        this.$http
+          .post("http://localhost:8080/pin/getPinComments",{"pinId":pinId,"userId":this.user.userId})
+          .then(function (res) {
+            that.comments=res.data.data;
+          })
+      },
+      // 发表评论方法
+      btnsend: function (pinId) {
+        var that=this;
+        this.$http
+          .post("http://localhost:8080/pin/addPinComment",{
+            "pinId":pinId,"userId":this.user.userId,"commentContent":this.input_comment
+          })
+          .then(function (res) {
+            that.$message.success("评论成功");
+            that.input_comment='';
+            that.getData(pinId)
+          });
+      },
+      btndelete: function (pinId,id) {
+        var that=this;
+        this.$http
+          .post("http://localhost:8080/pin/deletePinComment",{
+            "commentId":id
+          })
+          .then(function (res) {
+            that.$message.success("删除成功");
+            that.getData(pinId)
+          });
+      },
+      // 评论点赞
+      btnsupport: function (pinId,id) {
+        var that=this;
+        this.$http
+          .post('http://localhost:8080/pin/insertPinCommentLike',{"commentId":id,"userId":this.user.userId})
+          .then(function (res) {
+            that.getData(pinId);
+          })
+      },
+      //取消点赞
+      btndislike: function (pinId,id) {
+        var that=this;
+        this.$http
+          .post('http://localhost:8080/pin/deletePinCommentLike',{"commentId":id,"userId":this.user.userId})
+          .then(function (res) {
+            that.getData(pinId);
+          })
+      },
       //提交
       onSubmit() {
         if(this.form.content===''){
@@ -379,6 +557,26 @@
           })
       }
     },
+    computed:{
+      display:function () {
+        if(this.input_comment===''){
+          return this.disabled=true;
+        } else {
+          return this.disabled=false;
+        }
+      },
+      surplus: function () {
+        return this.total - this.input_comment.length;
+      },
+      getData(pinId){
+        var that=this;
+        this.$http
+          .post("http://localhost:8080/pin/getPinComments",{"pinId":pinId,"userId":this.user.userId})
+          .then(function (res) {
+            that.comments=res.data.data;
+          })
+      }
+    },
     filters: {
       formatDate(time) {
         var date = new Date(time);
@@ -389,6 +587,34 @@
 </script>
 
 <style scoped>
+  .commentContent{
+    margin-top: 10%;
+  }
+  .pull-right{
+    color: #969896;
+    font-size: 15px;
+  }
+  .fabiao{
+    float: right;
+  }
+  .tb_comment{
+    width: 100%;
+    /* border: 1px solid; */
+  }
+  .tb_comment img{
+    width:64px;
+    height:64px;
+    border-radius: 50%;
+  }
+  .tb_user{
+    width: 80px;
+  }
+  /* 用户评论内容展示 */
+  .div_comment_content{
+    padding: 6px 12px;
+    border: 1px solid #d2d6de;
+    background-color: #f0f8ff;
+  }
   .tou p{
     font-size: 16px;
     font-weight: bold;

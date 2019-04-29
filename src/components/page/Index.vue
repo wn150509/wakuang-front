@@ -73,30 +73,14 @@
 </script>
 
 <style scoped>
-  .Xbox {
-    border-bottom: 1px solid #eef1f6;
-    height: 50px;
-    background-color: #F8F8F8;
-    box-shadow: 0 0 8px rgba(0,0,0,.1);
-  }
   .row{
     margin-top: 20px;
-  }
-  .avatar{
-    width: 50px;
-    height: 50px;
-  }
-  .btn{
-    font-size: 13px;
   }
   a {
     color: #324157;
     text-decoration: none;
   }
   .content{
-    margin-top: 20px;
-  }
-  .others{
     margin-top: 20px;
   }
 </style>

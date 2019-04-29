@@ -26,23 +26,18 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div class="grcj">
-          <h4>个人成就</h4><hr/>
-          <div>
-            <i class="far fa-heart" style="color: #409EFF;margin-left: 3%"></i>&nbsp;&nbsp;
-            <span>获得点赞：{{user.likeCount}}次</span><br/>
-          </div>
-          <div>
-            <i class="far fa-eye" style="color: #409EFF;margin-left: 3%"></i>&nbsp;&nbsp;
-            <span>文章被阅读：{{user.lookCount}}次</span>
-          </div>
-        </div>
+        <v-self-up class="up"></v-self-up>
+        <v-self-center class="center"></v-self-center>
+        <v-self-down></v-self-down>
       </div>
     </div>
 </template>
 
 <script>
+  import vSelfUp from '../UserRightModel/SelfUp.vue'
   import vUHeader from '../twohead/UHeader.vue'
+  import vSelfCenter from '../UserRightModel/SelfCenter.vue'
+  import vSelfDown from '../UserRightModel/SelfDown.vue'
   export default {
     data(){
       return{
@@ -50,12 +45,22 @@
       }
     },
     components:{
-      vUHeader
+      vUHeader,
+      vSelfUp,
+      vSelfCenter,
+      vSelfDown
     }
   }
 </script>
 
 <style scoped>
+  .up{
+    padding-bottom: 20px;
+  }
+  .center{
+    padding: 10px;
+    margin-top: 5%;
+  }
   .cardtop{
     margin-top: 20px;
   }
@@ -83,10 +88,5 @@
   }
   .bjzl{
     margin-top: 50px;
-  }
-  .grcj{
-    width: 280px;
-    background-color: #F8F8F8;
-    box-shadow: 0 0 8px rgba(0,0,0,.1);
   }
 </style>

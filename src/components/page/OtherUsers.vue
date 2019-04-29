@@ -23,21 +23,16 @@
       </div>
     </div>
     <div class="col-md-4">
-      <div class="grcj">
-        <h4>个人成就</h4><hr/>
-        <div>
-          <i class="far fa-heart" style="color: #409EFF;margin-left: 3%"></i>&nbsp;&nbsp;
-          <span>获得点赞：{{otherUser.likeCount}}次</span><br/>
-        </div>
-        <div>
-          <i class="far fa-eye" style="color: #409EFF;margin-left: 3%"></i>&nbsp;&nbsp;
-          <span>文章被阅读：{{otherUser.lookCount}}次</span>
-        </div>
-      </div>
+      <v-o-uup class="up"></v-o-uup>
+      <v-o-ucenter class="center"></v-o-ucenter>
+      <v-o-udown></v-o-udown>
     </div>
   </div>
 </template>
 <script>
+  import vOUup from '../OURightModel/OUup.vue'
+  import vOUcenter from '../OURightModel/OUcenter.vue'
+  import vOUdown from '../OURightModel/OUdown.vue'
   import vOUHeader from '../twohead/OUHeader.vue'
   export default {
     data(){
@@ -74,12 +69,22 @@
       }
     },
     components:{
-      vOUHeader
+      vOUHeader,
+      vOUup,
+      vOUcenter,
+      vOUdown
     }
   }
 </script>
 
 <style scoped>
+  .up{
+    padding-bottom: 20px;
+  }
+  .center{
+    padding: 10px;
+    margin-top: 5%;
+  }
   .cardtop{
     margin-top: 20px;
   }

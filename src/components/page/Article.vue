@@ -43,29 +43,32 @@
               <table class="tb_comment table table-condensed">
                 <tbody>
                 <tr>
-                  <td class="tb_user" v-if="item.userStatus.userId===user.userId">
+                  <td class="tb_user" v-if="item.sysUser.userId===user.userId">
                     <a :href="'/user/'+user.userId+'/posts'">
-                      <img class="img-circle" v-bind:src="item.userStatus.userAvatar">
+                      <img class="img-circle" v-bind:src="item.sysUser.userAvatar">
                     </a>
                   </td>
                   <td class="tb_user" v-else>
-                    <a :href=" '/ou/'+item.userStatus.userId">
-                      <img class="img-circle" v-bind:src="item.userStatus.userAvatar">
+                    <a :href=" '/ou/'+item.sysUser.userId">
+                      <img class="img-circle" v-bind:src="item.sysUser.userAvatar">
                     </a>
                   </td>
                   <td>
-                    <p>{{item.userStatus.userName}} &nbsp;&nbsp;<i class="far fa-clock"></i>&nbsp;{{item.commentTime | formatDate}}
+                    <p>{{item.sysUser.userName}} &nbsp;&nbsp;<i class="far fa-clock"></i>&nbsp;{{item.commentTime | formatDate}}
                       <span class="btn"></span><span class="btn"></span><span class="btn"></span><span class="btn"></span><span class="btn"></span>
                       <span class="pull-right">
                         <a href="#" v-if="item.status===0" @click.prevent="btnsupport(item.commentId)">👍🏻&nbsp;({{item.likeCount}})</a>
                         <a href="#" v-else @click.prevent="btndislike(item.commentId)">👍&nbsp;({{item.likeCount}})</a>
                       </span>
                     </p>
-                    <div class='div_comment_content'>
-                      {{item.commentContent}}
+                    <div class="row">
+                      <div class='col-md-10 div_comment_content'>
+                        {{item.commentContent}}
+                      </div>
+                      <div style="float: right" class="col-md-2" v-if="item.sysUser.userId===user.userId">
+                        <el-button type="danger" icon="el-icon-delete" circle @click="btndelete(item.commentId)"></el-button>
+                      </div>
                     </div>
-                    <div style="float: right" v-if="item.userStatus.userId===user.userId">
-                      <el-button type="danger" icon="el-icon-delete" circle @click="btndelete(item.commentId)"></el-button></div>
                   </td>
                 </tr>
                 </tbody>

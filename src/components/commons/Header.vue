@@ -143,7 +143,7 @@
     },
     methods: {
       logout() {
-        this.$router.push("/");
+        this.$router.push("/timeline/subscribe");
         localStorage.removeItem('loginUser');
         this.$router.go(0);
       },
