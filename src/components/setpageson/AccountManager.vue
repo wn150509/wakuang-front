@@ -26,7 +26,7 @@
           type: 'warning'
         }).then(() => {
           this.$http
-            .post('http://localhost:8080/user/deleteAccount',{"userId":this.user.userId})
+            .post(this.$baseUrl+'user/deleteAccount',{"userId":this.user.userId})
             .then(function (res) {
               that.$router.push("/");
               localStorage.removeItem('loginUser');

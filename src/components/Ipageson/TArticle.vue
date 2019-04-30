@@ -111,17 +111,17 @@
     created() {
       var that = this;
       this.$http
-        .post("http://localhost:8080/articles/typeid",{"userId":this.user.userId,"typeId":8})
+        .post(this.$baseUrl+"articles/typeid",{"userId":this.user.userId,"typeId":8})
         .then(function (response) {
           that.popular = response.data.data
         })
       this.$http
-        .post("http://localhost:8080/articles/typeid/time",{"userId":this.user.userId,"typeId":8})
+        .post(this.$baseUrl+"articles/typeid/time",{"userId":this.user.userId,"typeId":8})
         .then(function (response) {
           that.newest = response.data.data
         })
       this.$http
-        .post("http://localhost:8080/articles/typeid/comment",{"userId":this.user.userId,"typeId":8})
+        .post(this.$baseUrl+"articles/typeid/comment",{"userId":this.user.userId,"typeId":8})
         .then(function (response) {
           that.comment = response.data.data
         })
@@ -130,7 +130,7 @@
       insertlike(articleId){
         var that=this;
         this.$http
-          .post('http://localhost:8080/articles/insertlike',{"userId":this.user.userId,"articleId":articleId})
+          .post(this.$baseUrl+'articles/insertlike',{"userId":this.user.userId,"articleId":articleId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -138,7 +138,7 @@
       deletelike(articleId){
         var that=this;
         this.$http
-          .post('http://localhost:8080/articles/deletelike',{"userId":this.user.userId,"articleId":articleId})
+          .post(this.$baseUrl+'articles/deletelike',{"userId":this.user.userId,"articleId":articleId})
           .then(function (response) {
             that.$router.go(0)
           })

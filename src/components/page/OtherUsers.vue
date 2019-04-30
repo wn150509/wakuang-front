@@ -45,7 +45,7 @@
     created(){
       var that=this;
       this.$http
-        .post('http://localhost:8080/user/getUser',{"userId":this.user.userId,"concerneduserId":this.id})
+        .post(this.$baseUrl+'user/getUser',{"userId":this.user.userId,"concerneduserId":this.id})
         .then(function (response) {
           that.otherUser=response.data.data
         })
@@ -54,7 +54,7 @@
       insertuser(userId){
         var that=this;
         this.$http
-          .post('http://localhost:8080/user/insertuser',{"userId":this.user.userId,"concerneduserId":userId})
+          .post(this.$baseUrl+'user/insertuser',{"userId":this.user.userId,"concerneduserId":userId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -62,7 +62,7 @@
       deleteuser(userId){
         var that=this;
         this.$http
-          .post('http://localhost:8080/user/deleteuser',{"userId":this.user.userId,"concerneduserId":userId})
+          .post(this.$baseUrl+'user/deleteuser',{"userId":this.user.userId,"concerneduserId":userId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -109,11 +109,6 @@
   h3{
     margin-top: 30px;
     font-weight: bold;
-  }
-  .grcj{
-    width: 280px;
-    background-color: #F8F8F8;
-    box-shadow: 0 0 8px rgba(0,0,0,.1);
   }
   .guanzhu1{
     width: 80px;

@@ -34,7 +34,7 @@
     created:function () {
       var that=this;
       this.$http
-        .post("http://localhost:8080/topics/concerned",{"userId":this.user.userId})
+        .post(this.$baseUrl+"topics/concerned",{"userId":this.user.userId})
         .then(function(res) {
           that.arr=res.data.data
         })

@@ -15,6 +15,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(ElementUI);
 Vue.config.productionTip = false;
 Vue.prototype.$http=axios;
+Vue.prototype.$baseUrl='http:localhost:8080/';
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -50,7 +50,7 @@
         this.key=keyValue;
         var that=this;
         this.$http
-          .post("http://localhost:8080/articles/queryarticle",{"key":this.key,"userId":this.user.userId})
+          .post(this.$baseUrl+"articles/queryarticle",{"key":this.key,"userId":this.user.userId})
           .then(function (res) {
             that.articles=res.data.data;
             console.log(that.articles)

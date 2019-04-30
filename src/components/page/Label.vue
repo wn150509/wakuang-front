@@ -63,7 +63,7 @@
     created(){
       var that=this
       this.$http
-        .post('http://localhost:8080/labels/findonelabel',{
+        .post(this.$baseUrl+'labels/findonelabel',{
           "labelId":this.id ,"userId":this.user.userId
         })
         .then(function (response) {
@@ -74,7 +74,7 @@
       insertlabel(labelId){
         var that=this
         this.$http
-          .post('http://localhost:8080/labels/insertlabel',{"userId":this.user.userId,"labelId":labelId})
+          .post(this.$baseUrl+'labels/insertlabel',{"userId":this.user.userId,"labelId":labelId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -82,7 +82,7 @@
       deletelabel(labelId){
         var that=this
         this.$http
-          .post('http://localhost:8080/labels/deletelabel',{"userId":this.user.userId,"labelId":labelId})
+          .post(this.$baseUrl+'labels/deletelabel',{"userId":this.user.userId,"labelId":labelId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -90,7 +90,7 @@
       insertlike(articleId){
         var that=this;
         this.$http
-          .post('http://localhost:8080/articles/insertlike',{"userId":this.user.userId,"articleId":articleId})
+          .post(this.$baseUrl+'articles/insertlike',{"userId":this.user.userId,"articleId":articleId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -98,7 +98,7 @@
       deletelike(articleId){
         var that=this;
         this.$http
-          .post('http://localhost:8080/articles/deletelike',{"userId":this.user.userId,"articleId":articleId})
+          .post(this.$baseUrl+'articles/deletelike',{"userId":this.user.userId,"articleId":articleId})
           .then(function (response) {
             that.$router.go(0)
           })

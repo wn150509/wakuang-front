@@ -48,12 +48,12 @@
     created:function () {
       var that=this;
       this.$http
-        .post("http://localhost:8080/articles/oneArticle",{"userId":this.user.userId,"articleId":this.id})
+        .post(this.$baseUrl+"articles/oneArticle",{"userId":this.user.userId,"articleId":this.id})
         .then(function (res) {
           that.Article=res.data.data;
         });
       this.$http
-        .get("http://localhost:8080/user/article/"+this.id)
+        .get(this.$baseUrl+"user/article/"+this.id)
         .then(function (res) {
           that.messageCount=res.data.data;
         });

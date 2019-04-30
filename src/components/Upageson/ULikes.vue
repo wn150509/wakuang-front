@@ -44,7 +44,7 @@
     created() {
       var that = this;
       this.$http
-        .post("http://localhost:8080/articles/selflikearticles",{"userId":that.user.userId})
+        .post(this.$baseUrl+"articles/selflikearticles",{"userId":that.user.userId})
         .then(function (response) {
           that.popular = response.data.data;
           console.log(that.user.userId)
@@ -54,7 +54,7 @@
       deletelike(articleId){
         var that=this;
         this.$http
-          .post('http://localhost:8080/articles/deletelike',{"userId":this.user.userId,"articleId":articleId})
+          .post(this.$baseUrl+'articles/deletelike',{"userId":this.user.userId,"articleId":articleId})
           .then(function (response) {
             that.$router.go(0)
           })

@@ -75,7 +75,7 @@
     created(){
       var that=this;
       this.$http
-        .post('http://localhost:8080/labels/concern',this.user)
+        .post(this.$baseUrl+'labels/concern',this.user)
         .then(function (response) {
           console.log(response.data.data.length);
           for(var i=0;i<response.data.data.length;i++){
@@ -85,7 +85,7 @@
           }
         });
       this.$http
-        .post('http://localhost:8080/user/concern',this.user)
+        .post(this.$baseUrl+'user/concern',this.user)
         .then(function (res) {
           for(var i=0;i<res.data.data.length;i++){
             if(res.data.data[i].status===1){
@@ -94,7 +94,7 @@
           }
         });
       this.$http
-        .post('http://localhost:8080/user/userConcern',this.user)
+        .post(this.$baseUrl+'user/userConcern',this.user)
         .then(function (res) {
           that.concernedUser=res.data.data
         })
@@ -103,7 +103,7 @@
       deletelabel(labelId) {
         var that = this
         this.$http
-          .post('http://localhost:8080/labels/deletelabel', {"userId": this.user.userId, "labelId": labelId})
+          .post(this.$baseUrl+'labels/deletelabel', {"userId": this.user.userId, "labelId": labelId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -111,7 +111,7 @@
       deleteuser(userId){
         var that=this;
         this.$http
-          .post('http://localhost:8080/user/deleteuser',{"userId":this.user.userId,"concerneduserId":userId})
+          .post(this.$baseUrl+'user/deleteuser',{"userId":this.user.userId,"concerneduserId":userId})
           .then(function (response) {
             that.$router.go(0)
           })

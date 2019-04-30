@@ -29,7 +29,7 @@
     created(){
       var that=this;
       this.$http
-        .post('http://localhost:8080/user/userRightMessageCount',{"userId":this.user.userId})
+        .post(this.$baseUrl+'user/userRightMessageCount',{"userId":this.user.userId})
         .then(function (res) {
           that.Message=res.data.data;
         })

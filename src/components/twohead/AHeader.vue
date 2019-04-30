@@ -1,8 +1,5 @@
 <template>
   <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
-    <!--<el-menu-item index="1">-->
-      <!--<router-link to="/activities/all">综合</router-link>-->
-    <!--</el-menu-item>-->
     <el-menu-item index="1">
       <router-link to="/activities/posts">热门</router-link>
     </el-menu-item>

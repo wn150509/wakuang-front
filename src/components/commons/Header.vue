@@ -24,16 +24,7 @@
             <span class="btn bt"></span>
             <router-link to="/topics"><span class="btn bt">话题</span></router-link>
           </b-nav-item>
-
-          <!--<b-nav-item>-->
-            <!--<router-link to="/repos"><span class="btn bt">开源库</span></router-link>-->
-          <!--</b-nav-item>-->
-
-          <!--<b-nav-item>-->
-            <!--<router-link to="/events"><span class="btn bt">活动</span></router-link>-->
-          <!--</b-nav-item>-->
         </b-navbar-nav>
-
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-nav-form>
@@ -63,11 +54,6 @@
                 <li class="el-icon-edit" style="color: #C0C4CC"></li>&nbsp;&nbsp;写文章
               </router-link>
             </b-dropdown-item><hr/>
-            <!--<b-dropdown-item>-->
-              <!--<router-link to="/editor/drafts">-->
-                <!--<li class="el-icon-document" style="color: #C0C4CC"></li>&nbsp;&nbsp;草稿-->
-              <!--</router-link>-->
-            <!--</b-dropdown-item>-->
 
             <b-dropdown-item>
               <router-link :to=" '/user/'+user.userId+'/posts'"><i class="fas fa-user" style="color:#C0C4CC"></i>&nbsp;&nbsp;我的主页</router-link>
@@ -77,16 +63,6 @@
                 <i class="far fa-heart" style="color:#C0C4CC"></i>&nbsp;&nbsp;我赞过的
               </router-link>
             </b-dropdown-item>
-            <!--<b-dropdown-item>-->
-              <!--<router-link :to=" '/user/'+user.userId+'/collections'">-->
-                <!--<i class="el-icon-star-on" style="color: #C0C4CC"></i>&nbsp;&nbsp;我的收藏集-->
-              <!--</router-link>-->
-            <!--</b-dropdown-item>-->
-            <!--<b-dropdown-item>-->
-              <!--<router-link :to=" '/user/'+user.userId+'/books'">-->
-                <!--<li class="el-icon-goods" style="color: #C0C4CC"></li>&nbsp;&nbsp;已购-->
-              <!--</router-link>-->
-            <!--</b-dropdown-item>-->
             <b-dropdown-item>
               <router-link to="/subscribe">
                 <i class="fas fa-tag" style="color: #C0C4CC"></i>&nbsp;&nbsp;标签管理
@@ -97,21 +73,6 @@
                 <i class="fas fa-cog" style="color: #C0C4CC"></i>&nbsp;&nbsp;设置
               </router-link>
             </b-dropdown-item>
-            <!--<b-dropdown-item>-->
-              <!--<el-dropdown>-->
-              <!--<span class="el-dropdown-link">-->
-                <!--<li class="el-icon-info"></li>&nbsp;&nbsp;关于-->
-                <!--<i class="el-icon-arrow-right el-icon&#45;&#45;right"></i>-->
-              <!--</span>-->
-                <!--<el-dropdown-menu slot="dropdown">-->
-                  <!--<el-dropdown-item>下载应用</el-dropdown-item>-->
-                  <!--<el-dropdown-item>关于</el-dropdown-item>-->
-                  <!--<el-dropdown-item>加入我们</el-dropdown-item>-->
-                  <!--<el-dropdown-item>翻译计划</el-dropdown-item>-->
-                  <!--<el-dropdown-item>合作伙伴</el-dropdown-item>-->
-                <!--</el-dropdown-menu>-->
-              <!--</el-dropdown>-->
-            <!--</b-dropdown-item><hr/>-->
             <b-dropdown-item  @click="logout">
               <i class="fas fa-sign-out-alt" style="color: #C0C4CC"></i>&nbsp;&nbsp;登出
             </b-dropdown-item>

@@ -73,7 +73,7 @@
       saveUser(){
         var that = this;
         this.$http
-          .post('http://localhost:8080/user/update',{
+          .post(this.$baseUrl+'user/update',{
             "userId":this.user.userId,
             "userName":this.username,
             "userPosition":this.userposition,
@@ -84,7 +84,7 @@
             that.$message.success("保存成功");
             setTimeout(function(){
               that.$http
-                .get('http://localhost:8080/user/'+that.user.userId)
+                .get(this.$baseUrl+'user/'+that.user.userId)
                 .then(function (response) {
                   var userTemp = JSON.parse(localStorage.getItem("loginUser"));
                   userTemp=response.data.data
@@ -117,7 +117,7 @@
           data = this.result; // 这个就是base64编码了
           console.log(data);
           that.$http
-            .post("http://localhost:8080/user/avatar",
+            .post(this.$baseUrl+"user/avatar",
               {"name": that.user.email,"base64": data})
             .then(res=>{
               if (res.status===200){

@@ -354,7 +354,7 @@
     created(){
       var that=this;
       this.$http
-        .post('http://localhost:8080/topics/oneTopic',{"userId":this.user.userId,"topicId":this.id})
+        .post(this.$baseUrl+'topics/oneTopic',{"userId":this.user.userId,"topicId":this.id})
         .then(function (res) {
           that.oneTopicVo=res.data.data;
           console.log(res.data.data.userStatusList);
@@ -377,7 +377,7 @@
       getPinComments(pinId){
         var that=this;
         this.$http
-          .post("http://localhost:8080/pin/getPinComments",{"pinId":pinId,"userId":this.user.userId})
+          .post(this.$baseUrl+"pin/getPinComments",{"pinId":pinId,"userId":this.user.userId})
           .then(function (res) {
             that.comments=res.data.data;
           })
@@ -386,7 +386,7 @@
       btnsend: function (pinId) {
         var that=this;
         this.$http
-          .post("http://localhost:8080/pin/addPinComment",{
+          .post(this.$baseUrl+"pin/addPinComment",{
             "pinId":pinId,"userId":this.user.userId,"commentContent":this.input_comment
           })
           .then(function (res) {
@@ -398,9 +398,7 @@
       btndelete: function (pinId,id) {
         var that=this;
         this.$http
-          .post("http://localhost:8080/pin/deletePinComment",{
-            "commentId":id
-          })
+          .post(this.$baseUrl+"pin/deletePinComment",{"commentId":id})
           .then(function (res) {
             that.$message.success("删除成功");
             that.getData(pinId)
@@ -410,7 +408,7 @@
       btnsupport: function (pinId,id) {
         var that=this;
         this.$http
-          .post('http://localhost:8080/pin/insertPinCommentLike',{"commentId":id,"userId":this.user.userId})
+          .post(this.$baseUrl+'pin/insertPinCommentLike',{"commentId":id,"userId":this.user.userId})
           .then(function (res) {
             that.getData(pinId);
           })
@@ -419,7 +417,7 @@
       btndislike: function (pinId,id) {
         var that=this;
         this.$http
-          .post('http://localhost:8080/pin/deletePinCommentLike',{"commentId":id,"userId":this.user.userId})
+          .post(this.$baseUrl+'pin/deletePinCommentLike',{"commentId":id,"userId":this.user.userId})
           .then(function (res) {
             that.getData(pinId);
           })
@@ -464,7 +462,7 @@
           data=null;
           const headerConfig = { headers: { 'Content-Type': 'application/json' } };
           this.$http
-            .post("http://localhost:8080/pin/releasePin",
+            .post(this.$baseUrl+"pin/releasePin",
               {"pinContent": this.form.content,
                 "pinUrl":data,
                 "usersId":this.user.userId,
@@ -493,7 +491,7 @@
             data = this.result; // 这个就是base64编码了
             console.log(data);
             that.$http
-              .post("http://localhost:8080/pin/releasePin",
+              .post(this.$baseUrl+"pin/releasePin",
                 {"pinContent": that.form.content,
                   "pinUrl":data,
                   "usersId":that.user.userId,
@@ -520,7 +518,7 @@
       insertuser(userId){
         var that=this;
         this.$http
-          .post('http://localhost:8080/user/insertuser',{"userId":this.user.userId,"concerneduserId":userId})
+          .post(this.$baseUrl+'user/insertuser',{"userId":this.user.userId,"concerneduserId":userId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -529,7 +527,7 @@
       deleteuser(userId){
         var that=this;
         this.$http
-          .post('http://localhost:8080/user/deleteuser',{"userId":this.user.userId,"concerneduserId":userId})
+          .post(this.$baseUrl+'user/deleteuser',{"userId":this.user.userId,"concerneduserId":userId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -538,7 +536,7 @@
       insertlike(pinId){
         var that=this;
         this.$http
-          .post('http://localhost:8080/pin/insertPinUser',{"userId":this.user.userId,"pinId":pinId})
+          .post(this.$baseUrl+'pin/insertPinUser',{"userId":this.user.userId,"pinId":pinId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -547,7 +545,7 @@
       deletelike(pinId){
         var that=this;
         this.$http
-          .post('http://localhost:8080/pin/deletePinUser',{"userId":this.user.userId,"pinId":pinId})
+          .post(this.$baseUrl+'pin/deletePinUser',{"userId":this.user.userId,"pinId":pinId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -556,7 +554,7 @@
       insertTopic(topicId){
         var that=this
         this.$http
-          .post("http://localhost:8080/topics/inserttopic",{"userId":this.user.userId,"topicId":topicId})
+          .post(this.$baseUrl+"topics/inserttopic",{"userId":this.user.userId,"topicId":topicId})
           .then(function (res) {
             that.$router.go(0)
           })
@@ -565,7 +563,7 @@
       deleteTopic(topicId){
         var that=this
         this.$http
-          .post("http://localhost:8080/topics/deletetopic",{"userId":this.user.userId,"topicId":topicId})
+          .post(this.$baseUrl+"topics/deletetopic",{"userId":this.user.userId,"topicId":topicId})
           .then(function (res) {
             that.$router.go(0)
           })
@@ -585,7 +583,7 @@
       getData(pinId){
         var that=this;
         this.$http
-          .post("http://localhost:8080/pin/getPinComments",{"pinId":pinId,"userId":this.user.userId})
+          .post(this.$baseUrl+"pin/getPinComments",{"pinId":pinId,"userId":this.user.userId})
           .then(function (res) {
             that.comments=res.data.data;
           })

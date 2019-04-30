@@ -6,7 +6,6 @@
         <i class="fas fa-sync-alt"></i>&nbsp;&nbsp;换一批
       </span>
     </div><hr/>
-
     <div class="row" v-for="index in arr" :key="hotUsers[index].userId">
       <div class="col-md-2" v-if="hotUsers[index].userId===user.userId">
         <a :href="'/user/'+user.userId+'/posts'">
@@ -40,7 +39,7 @@
     created:function () {
       var that = this;
       this.$http
-        .get('http://localhost:8080/user/hot')
+        .get(this.$baseUrl+'user/hot')
         .then(function (response) {
           that.hotUsers = response.data.data;
         })

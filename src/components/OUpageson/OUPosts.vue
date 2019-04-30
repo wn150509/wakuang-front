@@ -80,12 +80,12 @@
     created(){
       var that = this;
       this.$http
-        .post('http://localhost:8080/articles/otherarticlesbylike',{"userId":this.user.userId,"concerneduserId":this.id})
+        .post(this.$baseUrl+'articles/otherarticlesbylike',{"userId":this.user.userId,"concerneduserId":this.id})
         .then(function (res) {
           that.popArticles=res.data.data;
         });
       this.$http
-        .post('http://localhost:8080/articles/otherarticlesbytime',{"userId":this.user.userId,"concerneduserId":this.id})
+        .post(this.$baseUrl+'articles/otherarticlesbytime',{"userId":this.user.userId,"concerneduserId":this.id})
         .then(function (res) {
           that.newArticles=res.data.data
         });
@@ -94,7 +94,7 @@
       insertlike(articleId){
         var that=this;
         this.$http
-          .post('http://localhost:8080/articles/insertlike',{"userId":this.user.userId,"articleId":articleId})
+          .post(this.$baseUrl+'articles/insertlike',{"userId":this.user.userId,"articleId":articleId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -102,7 +102,7 @@
       deletelike(articleId){
         var that=this;
         this.$http
-          .post('http://localhost:8080/articles/deletelike',{"userId":this.user.userId,"articleId":articleId})
+          .post(this.$baseUrl+'articles/deletelike',{"userId":this.user.userId,"articleId":articleId})
           .then(function (response) {
             that.$router.go(0)
           })

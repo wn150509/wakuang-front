@@ -126,7 +126,7 @@
     created:function(){
       var that=this;
       this.$http
-        .get("http://localhost:8080/labels/all")
+        .get(this.$baseUrl+"labels/all")
         .then(function (res){
           that.Options=res.data.data
         })
@@ -157,7 +157,7 @@
           console.log("这是运行函数后打印结果："+this.labelsId)
           const headerConfig = { headers: { 'Content-Type': 'application/json' } };
           this.$http
-            .post("http://localhost:8080/articles/add",
+            .post(this.$baseUrl+"articles/add",
               {"articleTitle": this.form.name,
                 "articleContent": this.content,
                 "articleAuthor":this.user.userName,
@@ -190,7 +190,7 @@
             console.log(data);
             console.log(that.user.userAvatar)
             that.$http
-              .post("http://localhost:8080/articles/add",
+              .post(this.$baseUrl+"articles/add",
                 {"articleTitle": that.form.name,
                   "articleContent": that.content,
                   "articleAuthor":that.user.userName,
