@@ -121,7 +121,7 @@
     created(){
       var that=this;
       this.$http
-        .post(this.$baseUrl+"pin/getPinsByConcerned",{"userId":this.user.userId})
+        .post(this.GLOBAL.rootUrl+"pin/getPinsByConcerned",{"userId":this.user.userId})
         .then(function (res) {
           that.PinVo=res.data.data;
         })
@@ -130,7 +130,7 @@
       insertuser(userId){
         var that=this;
         this.$http
-          .post(this.$baseUrl+'user/insertuser',{"userId":this.user.userId,"concerneduserId":userId})
+          .post(this.GLOBAL.rootUrl+'user/insertuser',{"userId":this.user.userId,"concerneduserId":userId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -138,7 +138,7 @@
       deleteuser(userId){
         var that=this;
         this.$http
-          .post(this.$baseUrl+'user/deleteuser',{"userId":this.user.userId,"concerneduserId":userId})
+          .post(this.GLOBAL.rootUrl+'user/deleteuser',{"userId":this.user.userId,"concerneduserId":userId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -146,7 +146,7 @@
       insertlike(pinId){
         var that=this;
         this.$http
-          .post(this.$baseUrl+'pin/insertPinUser',{"userId":this.user.userId,"pinId":pinId})
+          .post(this.GLOBAL.rootUrl+'pin/insertPinUser',{"userId":this.user.userId,"pinId":pinId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -154,7 +154,7 @@
       deletelike(pinId){
         var that=this;
         this.$http
-          .post(this.$baseUrl+'pin/deletePinUser',{"userId":this.user.userId,"pinId":pinId})
+          .post(this.GLOBAL.rootUrl+'pin/deletePinUser',{"userId":this.user.userId,"pinId":pinId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -162,7 +162,7 @@
       getPinComments(pinId){
         var that=this;
         this.$http
-          .post(this.$baseUrl+"pin/getPinComments",{"pinId":pinId,"userId":this.user.userId})
+          .post(this.GLOBAL.rootUrl+"pin/getPinComments",{"pinId":pinId,"userId":this.user.userId})
           .then(function (res) {
             that.comments=res.data.data;
           })
@@ -171,7 +171,7 @@
       btnsend: function (pinId) {
         var that=this;
         this.$http
-          .post(this.$baseUrl+"pin/addPinComment",{
+          .post(this.GLOBAL.rootUrl+"pin/addPinComment",{
             "pinId":pinId,"userId":this.user.userId,"commentContent":this.input_comment
           })
           .then(function (res) {
@@ -183,7 +183,7 @@
       btndelete: function (pinId,id) {
         var that=this;
         this.$http
-          .post(this.$baseUrl+"pin/deletePinComment",{
+          .post(this.GLOBAL.rootUrl+"pin/deletePinComment",{
             "commentId":id
           })
           .then(function (res) {
@@ -195,7 +195,7 @@
       btnsupport: function (pinId,id) {
         var that=this;
         this.$http
-          .post(this.$baseUrl+'pin/insertPinCommentLike',{"commentId":id,"userId":this.user.userId})
+          .post(this.GLOBAL.rootUrl+'pin/insertPinCommentLike',{"commentId":id,"userId":this.user.userId})
           .then(function (res) {
             that.getData(pinId);
           })
@@ -204,7 +204,7 @@
       btndislike: function (pinId,id) {
         var that=this;
         this.$http
-          .post(this.$baseUrl+'pin/deletePinCommentLike',{"commentId":id,"userId":this.user.userId})
+          .post(this.GLOBAL.rootUrl+'pin/deletePinCommentLike',{"commentId":id,"userId":this.user.userId})
           .then(function (res) {
             that.getData(pinId);
           })
@@ -224,7 +224,7 @@
       getData(pinId){
         var that=this;
         this.$http
-          .post(this.$baseUrl+"pin/getPinComments",{"pinId":pinId,"userId":this.user.userId})
+          .post(this.GLOBAL.rootUrl+"pin/getPinComments",{"pinId":pinId,"userId":this.user.userId})
           .then(function (res) {
             that.comments=res.data.data;
           })

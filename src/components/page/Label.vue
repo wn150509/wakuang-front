@@ -63,7 +63,7 @@
     created(){
       var that=this
       this.$http
-        .post(this.$baseUrl+'labels/findonelabel',{
+        .post(this.GLOBAL.rootUrl+'labels/findonelabel',{
           "labelId":this.id ,"userId":this.user.userId
         })
         .then(function (response) {
@@ -74,7 +74,7 @@
       insertlabel(labelId){
         var that=this
         this.$http
-          .post(this.$baseUrl+'labels/insertlabel',{"userId":this.user.userId,"labelId":labelId})
+          .post(this.GLOBAL.rootUrl+'labels/insertlabel',{"userId":this.user.userId,"labelId":labelId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -82,7 +82,7 @@
       deletelabel(labelId){
         var that=this
         this.$http
-          .post(this.$baseUrl+'labels/deletelabel',{"userId":this.user.userId,"labelId":labelId})
+          .post(this.GLOBAL.rootUrl+'labels/deletelabel',{"userId":this.user.userId,"labelId":labelId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -90,7 +90,7 @@
       insertlike(articleId){
         var that=this;
         this.$http
-          .post(this.$baseUrl+'articles/insertlike',{"userId":this.user.userId,"articleId":articleId})
+          .post(this.GLOBAL.rootUrl+'articles/insertlike',{"userId":this.user.userId,"articleId":articleId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -98,7 +98,7 @@
       deletelike(articleId){
         var that=this;
         this.$http
-          .post(this.$baseUrl+'articles/deletelike',{"userId":this.user.userId,"articleId":articleId})
+          .post(this.GLOBAL.rootUrl+'articles/deletelike',{"userId":this.user.userId,"articleId":articleId})
           .then(function (response) {
             that.$router.go(0)
           })

@@ -39,7 +39,7 @@
     created:function () {
       var that = this;
       this.$http
-        .get(this.$baseUrl+'user/hot')
+        .get(this.GLOBAL.rootUrl+'user/hot')
         .then(function (response) {
           that.hotUsers = response.data.data;
         })

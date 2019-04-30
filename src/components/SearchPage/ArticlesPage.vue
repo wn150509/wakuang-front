@@ -50,7 +50,7 @@
         this.key=keyValue;
         var that=this;
         this.$http
-          .post(this.$baseUrl+"articles/queryarticle",{"key":this.key,"userId":this.user.userId})
+          .post(this.GLOBAL.rootUrl+"articles/queryarticle",{"key":this.key,"userId":this.user.userId})
           .then(function (res) {
             that.articles=res.data.data;
             console.log(that.articles)

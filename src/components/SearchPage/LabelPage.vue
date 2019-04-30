@@ -40,7 +40,7 @@
         this.key=keyValue;
         var that=this;
         this.$http
-          .post(this.$baseUrl+'labels/querylabels',{"userId":this.user.userId,"key":this.key})
+          .post(this.GLOBAL.rootUrl+'labels/querylabels',{"userId":this.user.userId,"key":this.key})
           .then(function (res) {
             that.labels=res.data.data
           })
@@ -50,7 +50,7 @@
       insertlabel(labelId){
         var that=this
         this.$http
-          .post(this.$baseUrl+'labels/insertlabel',{"userId":this.user.userId,"labelId":labelId})
+          .post(this.GLOBAL.rootUrl+'labels/insertlabel',{"userId":this.user.userId,"labelId":labelId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -58,7 +58,7 @@
       deletelabel(labelId){
         var that=this
         this.$http
-          .post(this.$baseUrl+'labels/deletelabel',{"userId":this.user.userId,"labelId":labelId})
+          .post(this.GLOBAL.rootUrl+'labels/deletelabel',{"userId":this.user.userId,"labelId":labelId})
           .then(function (response) {
             that.$router.go(0)
           })

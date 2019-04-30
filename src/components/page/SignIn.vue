@@ -110,7 +110,7 @@
           this.$message.error("手机号格式错误！！！")
         }else {
           this.$http
-            .post(this.$baseUrl+'user/sign_in',
+            .post(this.GLOBAL.rootUrl+'user/sign_in',
               {"email": this.phone,"password": this.password})
             .then(function (response) {
               if (response.data.data===null){

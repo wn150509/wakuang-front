@@ -40,12 +40,12 @@
     created(){
       var that=this;
       this.$http
-        .post(this.$baseUrl+'user/userConcern',this.user)
+        .post(this.GLOBAL.rootUrl+'user/userConcern',this.user)
         .then(function (res) {
           that.concernUserList=res.data.data;
         })
       this.$http
-        .post(this.$baseUrl+'user/concern',this.user)
+        .post(this.GLOBAL.rootUrl+'user/concern',this.user)
         .then(function (res) {
           for(var i=0;i<res.data.data.length;i++){
             if(res.data.data[i].status===1){
@@ -54,7 +54,7 @@
           }
         })
       this.$http
-        .post(this.$baseUrl+"/pin/getUserPins",{"userId":this.user.userId})
+        .post(this.GLOBAL.rootUrl+"pin/getUserPins",{"userId":this.user.userId})
         .then(function (res) {
           that.pinList=res.data.data;
         })

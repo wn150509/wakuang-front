@@ -86,7 +86,7 @@
       created(){
         var that=this;
         this.$http
-          .post(this.$baseUrl+'topics/all',{"userId":this.user.userId})
+          .post(this.GLOBAL.rootUrl+'topics/all',{"userId":this.user.userId})
           .then(function (res) {
             that.TopicList=res.data.data
           })
@@ -141,7 +141,7 @@
             data=null;
             const headerConfig = { headers: { 'Content-Type': 'application/json' } };
             this.$http
-              .post(this.$baseUrl+"pin/releasePin",
+              .post(this.GLOBAL.rootUrl+"pin/releasePin",
                 {"pinContent": this.form.content,
                   "pinUrl":data,
                   "usersId":this.user.userId,
@@ -170,7 +170,7 @@
               data = this.result; // 这个就是base64编码了
               console.log(data);
               that.$http
-                .post(this.$baseUrl+"pin/releasePin",
+                .post(that.GLOBAL.rootUrl+"pin/releasePin",
                   {"pinContent": that.form.content,
                     "pinUrl":data,
                     "usersId":that.user.userId,

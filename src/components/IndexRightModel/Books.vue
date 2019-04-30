@@ -34,7 +34,7 @@
     created() {
       var that = this
       this.$http
-        .get(this.$baseUrl+'labels/all')
+        .get(this.GLOBAL.rootUrl+'labels/all')
         .then(function (response) {
           that.Labels = response.data.data;
         })

@@ -58,7 +58,7 @@
     created:function(){
       var that=this;
       this.$http
-        .post(this.$baseUrl+"topics/all",this.user)
+        .post(this.GLOBAL.rootUrl+"topics/all",this.user)
         .then(function(res) {
           that.topicList=res.data.data;
           for(var i=0;i<res.data.data.length;i++){
@@ -72,7 +72,7 @@
       insertTopic(topicId){
         var that=this
         this.$http
-          .post(this.$baseUrl+"topics/inserttopic",{"userId":this.user.userId,"topicId":topicId})
+          .post(this.GLOBAL.rootUrl+"topics/inserttopic",{"userId":this.user.userId,"topicId":topicId})
           .then(function (res) {
             that.$router.go(0)
           })
@@ -80,7 +80,7 @@
       deleteTopic(topicId){
         var that=this
         this.$http
-          .post(this.$baseUrl+"topics/deletetopic",{"userId":this.user.userId,"topicId":topicId})
+          .post(this.GLOBAL.rootUrl+"topics/deletetopic",{"userId":this.user.userId,"topicId":topicId})
           .then(function (res) {
             that.$router.go(0)
           })

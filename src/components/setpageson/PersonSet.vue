@@ -73,7 +73,7 @@
       saveUser(){
         var that = this;
         this.$http
-          .post(this.$baseUrl+'user/update',{
+          .post(this.GLOBAL.rootUrl+'user/update',{
             "userId":this.user.userId,
             "userName":this.username,
             "userPosition":this.userposition,
@@ -84,7 +84,7 @@
             that.$message.success("保存成功");
             setTimeout(function(){
               that.$http
-                .get(this.$baseUrl+'user/'+that.user.userId)
+                .get(that.GLOBAL.rootUrl+'user/'+that.user.userId)
                 .then(function (response) {
                   var userTemp = JSON.parse(localStorage.getItem("loginUser"));
                   userTemp=response.data.data
@@ -98,7 +98,6 @@
       uploadFile() {
         const file = this.$refs.upload.uploadFiles[0];
         const isLt2M = file.size / 1024 / 1024 < 2;
-
         if (!file) { // 若未选择文件
           alert('请选择文件');
           return;
@@ -117,7 +116,7 @@
           data = this.result; // 这个就是base64编码了
           console.log(data);
           that.$http
-            .post(this.$baseUrl+"user/avatar",
+            .post(that.GLOBAL.rootUrl+"user/avatar",
               {"name": that.user.email,"base64": data})
             .then(res=>{
               if (res.status===200){

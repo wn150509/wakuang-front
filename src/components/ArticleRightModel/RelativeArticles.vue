@@ -33,7 +33,7 @@
     created() {
       var that = this;
       this.$http
-        .post(this.$baseUrl+'articles/getRelativeArticles',{"userId":this.user.userId,"articleId":this.id})
+        .post(this.GLOBAL.rootUrl+'articles/getRelativeArticles',{"userId":this.user.userId,"articleId":this.id})
         .then(function (response) {
           that.relativeArticles = response.data.data;
         })

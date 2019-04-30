@@ -89,7 +89,7 @@
           this.$message.error("请输入正确的手机号码")
         } else {
           this.$http
-            .post(this.$baseUrl+'user/checkCode',{"email":this.phone})
+            .post(this.GLOBAL.rootUrl+'user/checkCode',{"email":this.phone})
             .then(function (res) {
               that.code=res.data.data;
             })
@@ -104,7 +104,7 @@
             this.$message.error("请输入六位纯数字密码")
           }else {
             this.$http
-              .post(this.$baseUrl+'user/sign_up',
+              .post(this.GLOBAL.rootUrl+'user/sign_up',
                 {"userName": this.name,
                   "email":this.phone,
                   "password": this.password})

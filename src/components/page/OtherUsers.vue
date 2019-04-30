@@ -45,7 +45,7 @@
     created(){
       var that=this;
       this.$http
-        .post(this.$baseUrl+'user/getUser',{"userId":this.user.userId,"concerneduserId":this.id})
+        .post(this.GLOBAL.rootUrl+'user/getUser',{"userId":this.user.userId,"concerneduserId":this.id})
         .then(function (response) {
           that.otherUser=response.data.data
         })
@@ -54,7 +54,7 @@
       insertuser(userId){
         var that=this;
         this.$http
-          .post(this.$baseUrl+'user/insertuser',{"userId":this.user.userId,"concerneduserId":userId})
+          .post(this.GLOBAL.rootUrl+'user/insertuser',{"userId":this.user.userId,"concerneduserId":userId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -62,7 +62,7 @@
       deleteuser(userId){
         var that=this;
         this.$http
-          .post(this.$baseUrl+'user/deleteuser',{"userId":this.user.userId,"concerneduserId":userId})
+          .post(this.GLOBAL.rootUrl+'user/deleteuser',{"userId":this.user.userId,"concerneduserId":userId})
           .then(function (response) {
             that.$router.go(0)
           })

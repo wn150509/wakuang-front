@@ -121,13 +121,13 @@
     created:function () {
       var that=this;
       this.$http
-        .post(this.$baseUrl+"articles/oneArticle",{"userId":this.user.userId,"articleId":this.id})
+        .post(this.GLOBAL.rootUrl+"articles/oneArticle",{"userId":this.user.userId,"articleId":this.id})
         .then(function (res) {
           that.Article=res.data.data;
           that.html=res.data.data.articleStatus.articleContent
         });
       this.$http
-        .post(this.$baseUrl+"articles/comments",{"articleId":this.id,"userId":this.user.userId})
+        .post(this.GLOBAL.rootUrl+"articles/comments",{"articleId":this.id,"userId":this.user.userId})
         .then(function (res) {
           that.comments=res.data.data;
         })
@@ -136,7 +136,7 @@
       insertuser(userId){
         var that=this;
         this.$http
-          .post(this.$baseUrl+'user/insertuser',{"userId":this.user.userId,"concerneduserId":userId})
+          .post(this.GLOBAL.rootUrl+'user/insertuser',{"userId":this.user.userId,"concerneduserId":userId})
           .then(function (response) {
             that.getArticle();
           })
@@ -144,7 +144,7 @@
       deleteuser(userId){
         var that=this;
         this.$http
-          .post(this.$baseUrl+'user/deleteuser',{"userId":this.user.userId,"concerneduserId":userId})
+          .post(this.GLOBAL.rootUrl+'user/deleteuser',{"userId":this.user.userId,"concerneduserId":userId})
           .then(function (response) {
             that.getArticle();
           })
@@ -152,7 +152,7 @@
       insertlike(articleId){
         var that=this;
         this.$http
-          .post(this.$baseUrl+'articles/insertlike',{"userId":this.user.userId,"articleId":articleId})
+          .post(this.GLOBAL.rootUrl+'articles/insertlike',{"userId":this.user.userId,"articleId":articleId})
           .then(function (response) {
             that.getArticle();
           })
@@ -160,7 +160,7 @@
       deletelike(articleId){
         var that=this;
         this.$http
-          .post(this.$baseUrl+'articles/deletelike',{"userId":this.user.userId,"articleId":articleId})
+          .post(this.GLOBAL.rootUrl+'articles/deletelike',{"userId":this.user.userId,"articleId":articleId})
           .then(function (response) {
             that.getArticle();
           })
@@ -169,7 +169,7 @@
       btnsend: function () {
         var that=this;
         this.$http
-          .post(this.$baseUrl+"articles/addcomment",{
+          .post(this.GLOBAL.rootUrl+"articles/addcomment",{
             "articleId":this.id,"userId":this.user.userId,"commentContent":this.input_comment
           })
           .then(function (res) {
@@ -181,7 +181,7 @@
       btndelete: function (id) {
         var that=this;
         this.$http
-          .post(this.$baseUrl+"articles/delcomment",{"commentId":id})
+          .post(this.GLOBAL.rootUrl+"articles/delcomment",{"commentId":id})
           .then(function (res) {
             that.$message.success("删除成功");
             that.getData()
@@ -191,7 +191,7 @@
       btnsupport: function (id) {
         var that=this;
         this.$http
-          .post(this.$baseUrl+'articles/insertLikeComment',{"commentId":id,"userId":this.user.userId})
+          .post(this.GLOBAL.rootUrl+'articles/insertLikeComment',{"commentId":id,"userId":this.user.userId})
           .then(function (res) {
             that.getData();
           })
@@ -200,7 +200,7 @@
       btndislike: function (id) {
         var that=this;
         this.$http
-          .post(this.$baseUrl+'articles/deleteLikeComment',{"commentId":id,"userId":this.user.userId})
+          .post(this.GLOBAL.rootUrl+'articles/deleteLikeComment',{"commentId":id,"userId":this.user.userId})
           .then(function (res) {
             that.getData();
           })
@@ -221,7 +221,7 @@
       getData(){
         var that=this;
         this.$http
-          .post(this.$baseUrl+"articles/comments",{"articleId":this.id,"userId":this.user.userId})
+          .post(this.GLOBAL.rootUrl+"articles/comments",{"articleId":this.id,"userId":this.user.userId})
           .then(function (res) {
             that.comments=res.data.data;
           })
@@ -229,7 +229,7 @@
       getArticle(){
         var that=this;
         this.$http
-          .post(this.$baseUrl+"articles/oneArticle",{"userId":this.user.userId,"articleId":this.id})
+          .post(this.GLOBAL.rootUrl+"articles/oneArticle",{"userId":this.user.userId,"articleId":this.id})
           .then(function (res) {
             that.Article=res.data.data;
             that.html=res.data.data.articleStatus.articleContent

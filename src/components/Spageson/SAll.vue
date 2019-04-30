@@ -34,7 +34,7 @@
     created(){
       var that=this
       this.$http
-        .post(this.$baseUrl+'labels/concern',this.user)
+        .post(this.GLOBAL.rootUrl+'labels/concern',this.user)
         .then(function (response){
           that.labelList=response.data.data
         })
@@ -43,7 +43,7 @@
       insertlabel(labelId){
         var that=this
         this.$http
-          .post(this.$baseUrl+'labels/insertlabel',{"userId":this.user.userId,"labelId":labelId})
+          .post(this.GLOBAL.rootUrl+'labels/insertlabel',{"userId":this.user.userId,"labelId":labelId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -51,7 +51,7 @@
       deletelabel(labelId){
         var that=this
         this.$http
-          .post(this.$baseUrl+'labels/deletelabel',{"userId":this.user.userId,"labelId":labelId})
+          .post(this.GLOBAL.rootUrl+'labels/deletelabel',{"userId":this.user.userId,"labelId":labelId})
           .then(function (response) {
             that.$router.go(0)
           })

@@ -55,7 +55,7 @@
     created(){
       var that=this;
       this.$http
-        .post(this.$baseUrl+"pin/getOtherUserLikePins",{"userId":this.user.userId,"concerneduserId":this.id})
+        .post(this.GLOBAL.rootUrl+"pin/getOtherUserLikePins",{"userId":this.user.userId,"concerneduserId":this.id})
         .then(function (res) {
           that.PinVo=res.data.data;
         })
@@ -64,7 +64,7 @@
       insertuser(userId){
         var that=this;
         this.$http
-          .post(this.$baseUrl+'user/insertuser',{"userId":this.user.userId,"concerneduserId":userId})
+          .post(this.GLOBAL.rootUrl+'user/insertuser',{"userId":this.user.userId,"concerneduserId":userId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -72,7 +72,7 @@
       deleteuser(userId){
         var that=this;
         this.$http
-          .post(this.$baseUrl+'user/deleteuser',{"userId":this.user.userId,"concerneduserId":userId})
+          .post(this.GLOBAL.rootUrl+'user/deleteuser',{"userId":this.user.userId,"concerneduserId":userId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -80,7 +80,7 @@
       insertlike(pinId){
         var that=this;
         this.$http
-          .post(this.$baseUrl+'pin/insertPinUser',{"userId":this.user.userId,"pinId":pinId})
+          .post(this.GLOBAL.rootUrl+'pin/insertPinUser',{"userId":this.user.userId,"pinId":pinId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -88,7 +88,7 @@
       deletelike(pinId){
         var that=this;
         this.$http
-          .post(this.$baseUrl+'pin/deletePinUser',{"userId":this.user.userId,"pinId":pinId})
+          .post(this.GLOBAL.rootUrl+'pin/deletePinUser',{"userId":this.user.userId,"pinId":pinId})
           .then(function (response) {
             that.$router.go(0)
           })

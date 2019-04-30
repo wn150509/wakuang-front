@@ -42,7 +42,7 @@
         this.key = keyValue;
         var that=this;
         this.$http
-          .post(this.$baseUrl+'user/queryuser',{"userId":this.user.userId,"key":this.key})
+          .post(this.GLOBAL.rootUrl+'user/queryuser',{"userId":this.user.userId,"key":this.key})
           .then(function (res) {
             that.userList=res.data.data
           })
@@ -52,7 +52,7 @@
       insertuser(userId){
         var that=this;
         this.$http
-          .post(this.$baseUrl+'user/insertuser',{"userId":this.user.userId,"concerneduserId":userId})
+          .post(this.GLOBAL.rootUrl+'user/insertuser',{"userId":this.user.userId,"concerneduserId":userId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -60,7 +60,7 @@
       deleteuser(userId){
         var that=this;
         this.$http
-          .post(this.$baseUrl+'user/deleteuser',{"userId":this.user.userId,"concerneduserId":userId})
+          .post(this.GLOBAL.rootUrl+'user/deleteuser',{"userId":this.user.userId,"concerneduserId":userId})
           .then(function (response) {
             that.$router.go(0)
           })

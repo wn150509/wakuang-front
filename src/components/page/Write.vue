@@ -126,7 +126,7 @@
     created:function(){
       var that=this;
       this.$http
-        .get(this.$baseUrl+"labels/all")
+        .get(this.GLOBAL.rootUrl+"labels/all")
         .then(function (res){
           that.Options=res.data.data
         })
@@ -157,7 +157,7 @@
           console.log("这是运行函数后打印结果："+this.labelsId)
           const headerConfig = { headers: { 'Content-Type': 'application/json' } };
           this.$http
-            .post(this.$baseUrl+"articles/add",
+            .post(this.GLOBAL.rootUrl+"articles/add",
               {"articleTitle": this.form.name,
                 "articleContent": this.content,
                 "articleAuthor":this.user.userName,
@@ -187,10 +187,8 @@
           reader.readAsDataURL(file.raw);
           reader.onload = function(e) {
             data = this.result; // 这个就是base64编码了
-            console.log(data);
-            console.log(that.user.userAvatar)
             that.$http
-              .post(this.$baseUrl+"articles/add",
+              .post(that.GLOBAL.rootUrl+"articles/add",
                 {"articleTitle": that.form.name,
                   "articleContent": that.content,
                   "articleAuthor":that.user.userName,

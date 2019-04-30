@@ -80,12 +80,12 @@
     created(){
       var that = this;
       this.$http
-        .post(this.$baseUrl+'articles/selfArticlesbylike',this.user)
+        .post(this.GLOBAL.rootUrl+'articles/selfArticlesbylike',this.user)
         .then(function (res) {
           that.popArticles=res.data.data;
         });
       this.$http
-        .post(this.$baseUrl+'articles/selfArticlesbytime',this.user)
+        .post(this.GLOBAL.rootUrl+'articles/selfArticlesbytime',this.user)
         .then(function (res) {
           that.newArticles=res.data.data
         });
@@ -94,7 +94,7 @@
       insertlike(articleId){
         var that=this;
         this.$http
-          .post(this.$baseUrl+'articles/insertlike',{"userId":this.user.userId,"articleId":articleId})
+          .post(this.GLOBAL.rootUrl+'articles/insertlike',{"userId":this.user.userId,"articleId":articleId})
           .then(function (response) {
             that.$router.go(0)
           })
@@ -102,7 +102,7 @@
       deletelike(articleId){
         var that=this;
         this.$http
-          .post(this.$baseUrl+'articles/deletelike',{"userId":this.user.userId,"articleId":articleId})
+          .post(this.GLOBAL.rootUrl+'articles/deletelike',{"userId":this.user.userId,"articleId":articleId})
           .then(function (response) {
             that.$router.go(0)
           })

@@ -28,7 +28,7 @@
     created(){
       var that=this;
       this.$http
-        .post(this.$baseUrl+'user/userRightMessageCount',{"userId":this.user.userId})
+        .post(this.GLOBAL.rootUrl+'user/userRightMessageCount',{"userId":this.user.userId})
         .then(function (res) {
           that.Message=res.data.data;
         })
