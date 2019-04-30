@@ -65,13 +65,7 @@
         user1:{}
       };
     },
-    created(){
-      this.getData()
-    },
     methods: {
-      getData(){
-
-      },
       //更换头像弹出框
       imageDialog(){
         this.dialogVisible=true
@@ -134,18 +128,6 @@
               }
             });
         }
-        /* 此处停留1秒刷新页面 */
-        setTimeout(function(){
-          that.$http
-            .get('http://localhost:8080/user/'+that.user.userId)
-            .then(function (response) {
-              var userTemp = JSON.parse(localStorage.getItem("loginUser"));
-              userTemp=response.data.data
-              localStorage.setItem('loginUser',JSON.stringify(userTemp))
-            });
-          // alert("保存成功");
-          location.reload();
-        },1000)
       }
     }
   }

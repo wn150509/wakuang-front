@@ -271,7 +271,7 @@
         <div class="tou">
           <p>共有{{oneTopicVo.userStatusList.length}}人参加</p>
         </div><hr/>
-        <div class="body">
+        <div class="body" v-if="users.length!==0">
           <div class="row">
             <div class="col-md-3" v-for="i in users">
               <div v-if="i.userId===user.userId">
@@ -300,7 +300,7 @@
             <b-button @click="dialogTableVisible = true" variant="outline-secondary" class="qb">查看全部&nbsp;&nbsp;></b-button>
 
             <el-dialog title="全部参与者" width="70%" :visible.sync="dialogTableVisible">
-              <el-table :data="users">
+              <el-table :data="oneTopicVo.userStatusList">
                 <el-table-column property="userId" align="center" label="用户Id" width="80"></el-table-column>
                 <el-table-column align="center" label="用户头像">
                   <template slot-scope="scope">
@@ -357,14 +357,19 @@
         .post('http://localhost:8080/topics/oneTopic',{"userId":this.user.userId,"topicId":this.id})
         .then(function (res) {
           that.oneTopicVo=res.data.data;
-          if(res.data.data.userStatusList.length<12){
-            for(var i=0;i<res.data.data.userStatusList.length;i++){
-              that.users.unshift(res.data.data.userStatusList[i])
+          console.log(res.data.data.userStatusList);
+          if(res.data.data.userStatusList!==null){
+            if(res.data.data.userStatusList.length<12){
+              for(var i=0;i<res.data.data.userStatusList.length;i++){
+                that.users.unshift(res.data.data.userStatusList[i])
+              }
+            }else {
+              for(var i=0;i<12;i++){
+                that.users.unshift(res.data.data.userStatusList[i])
+              }
             }
           }else {
-            for(var i=0;i<12;i++){
-              that.users.unshift(res.data.data.userStatusList[i])
-            }
+            that.users.length=0;
           }
         })
     },
@@ -424,7 +429,9 @@
         if(this.form.content===''){
           this.Title();
         }else {
-          this.uploadFile();
+          if(this.uploadFile()===false){
+            return this.Error();
+          }
           this.Success();
         }
       },
@@ -433,6 +440,13 @@
         this.$notify.success({
           title: '成功',
           message: '发布动态成功！！！'
+        });
+      },
+      //成功提示
+      Error(){
+        this.$notify.error({
+          title: '失败',
+          message: '发布动态失败！！！'
         });
       },
       //内容错误

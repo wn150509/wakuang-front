@@ -4,7 +4,7 @@
         <el-breadcrumb separator="｜">
           <el-breadcrumb-item class="title "><i class="el-icon-date"></i>富文本编辑器</el-breadcrumb-item>
           <el-breadcrumb-item class="title ">
-            <router-link :to=" '/user/'+user.userId+'/activities'">
+            <router-link :to=" '/user/'+user.userId+'/posts'">
               <img :src="user.userAvatar" class="avatar1">
             </router-link>
           </el-breadcrumb-item>
