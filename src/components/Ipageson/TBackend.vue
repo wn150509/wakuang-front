@@ -5,7 +5,7 @@
         <div v-if="popular.length===0" style="text-align: center">
           <h4>/(ㄒoㄒ)/~~抱歉，此类还未有作者发布文章</h4>
         </div>
-        <div v-else class="row" v-for="pop in popular" :key="pop.articleId">
+        <div class="row" v-else v-for="pop in popular" :key="pop.articleId">
           <div class="col-md-10">
             <div class="up">
               <img v-bind:src="pop.authorAvatar" class="avatar">
@@ -13,7 +13,7 @@
               <span class="tsup">{{pop.createTime | formatDate}}</span>
             </div>
             <div class="center">
-              <a :href=" '/p/'+pop.articleId">
+              <a :href=" '/wakuang/#/p/'+pop.articleId">
                 <p class="tscenter">{{pop.articleTitle}}</p>
               </a>
             </div>
@@ -43,7 +43,7 @@
               <span class="tsup">{{pop.createTime | formatDate}}</span>
             </div>
             <div class="center">
-              <a :href=" '/p/'+pop.articleId">
+              <a :href=" '/wakuang/#/p/'+pop.articleId">
                 <p class="tscenter">{{pop.articleTitle}}</p>
               </a>
             </div>
@@ -73,7 +73,7 @@
               <span class="tsup">{{pop.createTime | formatDate}}</span>
             </div>
             <div class="center">
-              <a :href=" '/p/'+pop.articleId">
+              <a :href=" '/wakuang/#/p/'+pop.articleId">
                 <p class="tscenter">{{pop.articleTitle}}</p>
               </a>
             </div>

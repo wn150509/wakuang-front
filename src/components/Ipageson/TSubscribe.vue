@@ -1,100 +1,97 @@
 <template>
   <div>
     <el-tabs v-model="activeName">
-    <el-tab-pane label="热门" name="first">
-      <div v-if="popular.length===0" style="text-align: center">
-        <h3>＞﹏＜您 还 未 关 注 任 何 标 签＞﹏＜</h3>
-        <h4><router-link to="/subscribe"><span class="bt">去关注</span></router-link></h4>
-      </div>
-      <div class="row" v-else v-for="pop in popular" :key="pop.articleId">
-        <div class="col-md-10">
-          <div class="up">
-            <img v-bind:src="pop.authorAvatar" class="avatar">
-            <span class="tsup">·&nbsp;{{pop.articleAuthor}}&nbsp;·</span>
-            <span class="tsup">{{pop.createTime | formatDate}}</span>
-          </div>
-          <div class="center">
-            <a :href=" '/p/'+pop.articleId">
-              <p class="tscenter">{{pop.articleTitle}}</p>
-            </a>
-          </div>
-          <div class="down">
+      <el-tab-pane label="热门" name="first">
+        <div v-if="popular.length===0" style="text-align: center">
+          <h4>/(ㄒoㄒ)/~~抱歉，此类还未有作者发布文章</h4>
+        </div>
+        <div class="row" v-else v-for="pop in popular" :key="pop.articleId">
+          <div class="col-md-10">
+            <div class="up">
+              <img v-bind:src="pop.authorAvatar" class="avatar">
+              <span class="tsup">·&nbsp;{{pop.articleAuthor}}&nbsp;·</span>
+              <span class="tsup">{{pop.createTime | formatDate}}</span>
+            </div>
+            <div class="center">
+              <a :href=" '/wakuang/#/p/'+pop.articleId">
+                <p class="tscenter">{{pop.articleTitle}}</p>
+              </a>
+            </div>
+            <div class="down">
             <span class="tsdown">
               <span @click="deletelike(pop.articleId)" v-if="pop.status===1" style="color: #bd2c00">❤</span>
               <span v-else @click="insertlike(pop.articleId)"><i class="far fa-heart" ></i>
               </span>&nbsp;{{pop.likeCount}}</span>
-            <span class="btn"></span>
-            <span class="tsdown"><i class="fas fa-comment"></i>&nbsp;{{pop.commentCount}}</span>
-          </div><hr/>
-        </div>
-        <div class="col-md-2" v-if="pop.articlePic!=null">
-          <img v-bind:src="pop.articlePic" class="img"/>
-        </div>
-      </div>
-    </el-tab-pane>
-    <el-tab-pane label="最新" name="second">
-      <div v-if="newest.length===0" style="text-align: center">
-        <h3>＞﹏＜您 还 未 关 注 任 何 标 签＞﹏＜</h3>
-        <h4><router-link to="/subscribe"><span class="bt">去关注</span></router-link></h4>
-      </div>
-      <div class="row" v-else v-for="pop in newest" :key="pop.articleId">
-        <div class="col-md-10">
-          <div class="up">
-            <img v-bind:src="pop.authorAvatar" class="avatar">
-            <span class="tsup">·&nbsp;{{pop.articleAuthor}}&nbsp;·</span>
-            <span class="tsup">{{pop.createTime | formatDate}}</span>
+              <span class="btn"></span>
+              <span class="tsdown"><i class="fas fa-comment"></i>&nbsp;{{pop.commentCount}}</span>
+            </div><hr/>
           </div>
-          <div class="center">
-            <a :href=" '/p/'+pop.articleId">
-              <p class="tscenter">{{pop.articleTitle}}</p>
-            </a>
+          <div class="col-md-2" v-if="pop.articlePic!=null">
+            <img v-bind:src="pop.articlePic" class="img"/>
           </div>
-          <div class="down">
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="最新" name="second">
+        <div v-if="newest.length===0" style="text-align: center">
+          <h4>/(ㄒoㄒ)/~~抱歉，此类还未有作者发布文章</h4>
+        </div>
+        <div class="row" v-else v-for="pop in newest" :key="pop.articleId">
+          <div class="col-md-10">
+            <div class="up">
+              <img v-bind:src="pop.authorAvatar" class="avatar">
+              <span class="tsup">·&nbsp;{{pop.articleAuthor}}&nbsp;·</span>
+              <span class="tsup">{{pop.createTime | formatDate}}</span>
+            </div>
+            <div class="center">
+              <a :href=" '/wakuang/#/p/'+pop.articleId">
+                <p class="tscenter">{{pop.articleTitle}}</p>
+              </a>
+            </div>
+            <div class="down">
             <span class="tsdown">
               <span @click="deletelike(pop.articleId)" v-if="pop.status===1" style="color: #bd2c00">❤</span>
               <span v-else @click="insertlike(pop.articleId)"><i class="far fa-heart" ></i>
               </span>&nbsp;{{pop.likeCount}}</span>
-            <span class="btn"></span>
-            <span class="tsdown"><i class="fas fa-comment"></i>&nbsp;{{pop.commentCount}}</span>
-          </div><hr/>
-        </div>
-        <div class="col-md-2" v-if="pop.articlePic!=null">
-          <img v-bind:src="pop.articlePic" class="img"/>
-        </div>
-      </div>
-    </el-tab-pane>
-    <el-tab-pane label="评论" name="third">
-      <div v-if="comment.length===0" style="text-align: center">
-        <h3>＞﹏＜您 还 未 关 注 任 何 标 签＞﹏＜</h3>
-        <h4><router-link to="/subscribe"><span class="bt">去关注</span></router-link></h4>
-      </div>
-      <div class="row" v-else v-for="pop in comment" :key="pop.articleId">
-        <div class="col-md-10">
-          <div class="up">
-            <img v-bind:src="pop.authorAvatar" class="avatar">
-            <span class="tsup">·&nbsp;{{pop.articleAuthor}}&nbsp;·</span>
-            <span class="tsup">{{pop.createTime | formatDate}}</span>
+              <span class="btn"></span>
+              <span class="tsdown"><i class="fas fa-comment"></i>&nbsp;{{pop.commentCount}}</span>
+            </div><hr/>
           </div>
-          <div class="center">
-            <a :href=" '/p/'+pop.articleId">
-              <p class="tscenter">{{pop.articleTitle}}</p>
-            </a>
+          <div class="col-md-2" v-if="pop.articlePic!=null">
+            <img v-bind:src="pop.articlePic" class="img"/>
           </div>
-          <div class="down">
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="评论" name="third">
+        <div v-if="comment.length===0" style="text-align: center">
+          <h4>/(ㄒoㄒ)/~~抱歉，此类还未有作者发布文章</h4>
+        </div>
+        <div class="row" v-else v-for="pop in comment" :key="pop.articleId">
+          <div class="col-md-10">
+            <div class="up">
+              <img v-bind:src="pop.authorAvatar" class="avatar">
+              <span class="tsup">·&nbsp;{{pop.articleAuthor}}&nbsp;·</span>
+              <span class="tsup">{{pop.createTime | formatDate}}</span>
+            </div>
+            <div class="center">
+              <a :href=" '/wakuang/#/p/'+pop.articleId">
+                <p class="tscenter">{{pop.articleTitle}}</p>
+              </a>
+            </div>
+            <div class="down">
             <span class="tsdown">
               <span @click="deletelike(pop.articleId)" v-if="pop.status===1" style="color: #bd2c00">❤</span>
               <span v-else @click="insertlike(pop.articleId)"><i class="far fa-heart" ></i>
               </span>&nbsp;{{pop.likeCount}}</span>
-            <span class="btn"></span>
-            <span class="tsdown"><i class="fas fa-comment"></i>&nbsp;{{pop.commentCount}}</span>
-          </div><hr/>
+              <span class="btn"></span>
+              <span class="tsdown"><i class="fas fa-comment"></i>&nbsp;{{pop.commentCount}}</span>
+            </div><hr/>
+          </div>
+          <div class="col-md-2" v-if="pop.articlePic!=null">
+            <img v-bind:src="pop.articlePic" class="img"/>
+          </div>
         </div>
-        <div class="col-md-2" v-if="pop.articlePic!=null">
-          <img v-bind:src="pop.articlePic" class="img"/>
-        </div>
-      </div>
-    </el-tab-pane>
-  </el-tabs>
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 

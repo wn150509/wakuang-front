@@ -8,12 +8,12 @@
     </div><hr/>
     <div class="row" v-for="index in arr" :key="hotUsers[index].userId">
       <div class="col-md-2" v-if="hotUsers[index].userId===user.userId">
-        <a :href="'/user/'+user.userId+'/posts'">
+        <a :href="'/wakuang/#/user/'+user.userId+'/posts'">
           <img :src="hotUsers[index].userAvatar" class="userAvatar">
         </a>
       </div>
       <div class="col-md-2" v-else>
-        <a :href=" '/ou/'+hotUsers[index].userId">
+        <a :href=" '/wakuang/#/ou/'+hotUsers[index].userId">
           <img :src="hotUsers[index].userAvatar" class="userAvatar">
         </a>
       </div>

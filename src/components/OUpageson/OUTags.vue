@@ -8,12 +8,12 @@
           </div>
           <div class="row" v-else v-for="pop in userList" :key="pop.userId">
             <div class="col-md-2" v-if="pop.userId===user.userId">
-              <a :href="'/user/'+user.userId+'/activities'">
+              <a :href="'/wakuang/#/user/'+user.userId+'/activities'">
                 <img :src="pop.userAvatar" class="labelurl">
               </a>
             </div>
             <div class="col-md-2" v-else>
-              <a :href=" '/ou/'+pop.userId">
+              <a :href=" '/wakuang/#/ou/'+pop.userId">
                 <img :src="pop.userAvatar" class="labelurl">
               </a>
             </div>
@@ -35,12 +35,12 @@
           </div>
           <div class="row" v-else v-for="pop in concernedUser" :key="pop.userId">
             <div class="col-md-2" v-if="pop.userId===user.userId">
-              <a :href="'/user/'+user.userId+'/activities'">
+              <a :href="'/wakuang/#/user/'+user.userId+'/activities'">
                 <img :src="pop.userAvatar" class="labelurl">
               </a>
             </div>
             <div class="col-md-2" v-else>
-              <a :href=" '/ou/'+pop.userId">
+              <a :href=" 'wakuang/#/ou/'+pop.userId">
                 <img :src="pop.userAvatar" class="labelurl">
               </a>
             </div>

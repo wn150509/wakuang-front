@@ -12,7 +12,7 @@
             <span class="tsup">{{pop.createTime | formatDate}}</span>
           </div>
           <div class="center">
-            <a :href=" '/p/'+pop.articleId">
+            <a :href=" '/wakuang/#/p/'+pop.articleId">
               <p class="tscenter">{{pop.articleTitle}}</p>
             </a>
           </div>

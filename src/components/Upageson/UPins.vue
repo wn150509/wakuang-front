@@ -24,7 +24,9 @@
         </div>
         <span class="btn"></span>
         <div>
+          <a :href="'/wakuang/#/topic/'+pinvo.topics.topicId">
           <el-button type="primary" size="mini" plain round>{{pinvo.topics.topicName}}</el-button>
+          </a>
         </div>
         <div>
           <span class="tsdown">

@@ -7,7 +7,7 @@
     <div class="body">
       <div class="row" v-for="topic in arr" :key="topic.topicId">
         <div class="col-md-2">
-          <a :href=" '/topic/'+ topic.topicId ">
+          <a :href=" '/wakuang/#/topic/'+ topic.topicId ">
             <img v-bind:src="topic.topicUrl">
           </a>
         </div>

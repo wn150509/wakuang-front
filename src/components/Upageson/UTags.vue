@@ -7,7 +7,7 @@
       <el-tab-pane label="关注了" name="first" v-else>
         <div class="row" v-for="pop in userList" :key="pop.userId">
           <div class="col-md-2">
-            <a :href=" '/ou/'+pop.userId">
+            <a :href=" '/wakuang/#/ou/'+pop.userId">
               <img :src="pop.userAvatar" class="labelurl">
             </a>
           </div>
@@ -27,7 +27,7 @@
       <el-tab-pane label="关注者" name="second" v-else>
         <div class="row" v-for="pop in concernedUser" :key="pop.userId">
           <div class="col-md-2">
-            <a :href=" '/ou/'+pop.userId">
+            <a :href=" '/wakuang/#/ou/'+pop.userId">
               <img :src="pop.userAvatar" class="labelurl">
             </a>
           </div>

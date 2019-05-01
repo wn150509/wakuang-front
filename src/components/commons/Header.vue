@@ -4,7 +4,7 @@
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
       <router-link to="/">
         <b-navbar-brand>
-          <b-img width="100" height="50" src="/static/img/wk.png"/>
+          <b-img width="100" height="50" src="http://123.pen46789.cn/wk.png"/>
         </b-navbar-brand>
       </router-link>
       <b-collapse is-nav id="nav_collapse">
@@ -33,7 +33,7 @@
           </b-nav-form>
           <span class="btn"></span><span class="btn"></span>
 
-          <a class="btn write-btn" href="/write" v-if="user!=null">写文章</a>
+          <a class="btn write-btn" href="/wakuang/#/write" v-if="user!=null">写文章</a>
 
           <a class="btn" v-if="user===null" @click="open5">
             <i class="far fa-file-alt"></i>&nbsp;写文章
@@ -104,7 +104,7 @@
     },
     methods: {
       logout() {
-        this.$router.push("/timeline/subscribe");
+        this.$router.push("/wakuang");
         localStorage.removeItem('loginUser');
         this.$router.go(0);
       },

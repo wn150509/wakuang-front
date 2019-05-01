@@ -1,22 +1,22 @@
 <template>
   <div class="sign">
     <div class="logo">
-      <a href="/">
-        <img src="/static/img/logo.png" class="logo1">
+      <a href="/wakuang">
+        <img src="http://123.pen46789.cn/logo.png" class="logo1">
       </a>
     </div>
     <div class="main">
       <h4 class="title">
         <div class="normal-title">
-          <a class="active" href="/sign_in">
+          <a class="active" href="/wakuang/#/sign_in">
             <span class="red">登录</span>
           </a>
           <b>·</b>
-          <a id="js-sign-up-btn" class="register" href="/sign_up">注册</a>
+          <a id="js-sign-up-btn" class="register" href="/wakuang/#/sign_up">注册</a>
         </div>
       </h4>
       <div class="js-sign-in-container">
-        <form id="new_session" action="/sessions" accept-charset="UTF-8" method="post">
+        <form id="new_session" accept-charset="UTF-8" method="post">
           <input name="utf8" type="hidden" value="✓">
           <input type="hidden" name="authenticity_token" value="5RK+HVp8if7enNxRWV5Pb1FyPQxP/hGZafuWVG7FTC/r25fM/OaBTUOfvjq4KRQ1MmSxgPf437fPiFvCTV7Odw==">
 
@@ -40,7 +40,7 @@
             </el-input>
           </div>
           <div class="remember-btn">
-            <span>没有账号？</span><a href="/sign_up">注册</a>
+            <span>没有账号？</span><a href="/wakuang/#/sign_up">注册</a>
           </div>
           <div class="forget-btn">
             <a @click="dialogVisible=true">忘记密码？</a>
@@ -68,7 +68,8 @@
             suffix-icon=""
             v-model="checkpassword">
           </el-input>
-          <div class="aButton">发送验证码</div>
+          <div class="aButton" @click="check(checkphone)" v-if="code===''">发送验证码</div>
+          <div class="aButton" v-else>已发送</div>
         </div>
         <span class="btn"></span>
         <div class="demo-input-suffix">
@@ -82,7 +83,7 @@
         </div>
         <div slot="footer" class="dialog-footer">
           <el-button @click="dialogVisible=false">取 消</el-button>
-          <el-button type="primary" @click="dialogVisible=false">确 定</el-button>
+          <el-button type="primary" @click="changePassword(checkphone,newpassword)">确 定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -101,9 +102,48 @@
         checkphone:'',
         newpassword:'',
         checkpassword:'',
+        code:''
       }
     },
     methods: {
+      check(phone){
+        var that=this;
+        if(!this.isPhoneAvailable(phone)){
+          this.$message.error("请输入正确的手机号码")
+        } else {
+          this.$http
+            .post(this.GLOBAL.rootUrl+'user/checkCode',{"email":this.phone})
+            .then(function (res) {
+              that.code=res.data.data;
+            })
+        }
+      },
+      changePassword(phone,password){
+        if(!this.isPasswordAvailable(password)){
+          this.$message.error("请输入六位纯数字密码")
+        } else {
+          if(this.code!==this.checkpassword){
+            this.$message.error("验证码错误")
+          } else {
+            if(!this.isPhoneAvailable(phone)){
+              this.$message.error("手机号格式错误")
+            } else {
+              var that=this;
+              this.$http
+                .post(this.GLOBAL.rootUrl+'user/changePassword',{"phone":phone,"newPassword":password})
+                .then(function (res) {
+                  if(res.data.code===0){
+                    that.$message.success("修改成功");
+                    that.dialogVisible=false;
+                  } else {
+                    that.$message.error("您还未注册");
+                    that.$router.push("/wakuang/#/sign_up")
+                  }
+                })
+            }
+          }
+        }
+      },
       onClick(phone) {
         var that = this;
         if(!this.isPhoneAvailable(phone)) {
@@ -131,6 +171,14 @@
           return true;
         }
       },
+      isPasswordAvailable(password){
+        var reg = new RegExp(/^\d{6}$/);     //工作密码必须是6位数字
+        if(!reg.test(password)) {
+          return false;
+        }else {
+          return true;
+        }
+      }
     }
   }
 </script>

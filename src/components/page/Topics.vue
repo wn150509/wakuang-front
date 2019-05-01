@@ -9,7 +9,7 @@
               <img v-bind:src="topiced.topicUrl" class="topicUrl">
             </div>
             <div class="col-md-8">
-              <a :href="'/topic/'+topiced.topicId">
+              <a :href="'/wakuang/#/topic/'+topiced.topicId">
                 <div class="topicName">{{topiced.topicName}}</div>
               </a>
               <div class="count"><span>{{topiced.fansCount}}</span>关注·<span>{{topiced.pinsCount}}</span>沸点</div>
@@ -30,7 +30,7 @@
               <img v-bind:src="topic.topicUrl" class="topicUrl">
           </div>
           <div class="col-md-8">
-            <a :href="'/topic/'+topic.topicId">
+            <a :href="'/wakuang/#/topic/'+topic.topicId">
               <div class="topicName">{{topic.topicName}}</div>
             </a>
             <div class="count"><span>{{topic.fansCount}}</span>关注·<span>{{topic.pinsCount}}</span>沸点</div>

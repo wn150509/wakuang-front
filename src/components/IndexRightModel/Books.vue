@@ -6,7 +6,7 @@
     <div class="body">
       <div class="row" v-for="index in arr">
         <div class="col-md-4">
-          <a :href="'/tag/'+Labels[index].labelsId">
+          <a :href="'/wakuang/#/tag/'+Labels[index].labelsId">
             <img :src="Labels[index].labelsUrl" class="labelUrl"/>
           </a>
         </div>

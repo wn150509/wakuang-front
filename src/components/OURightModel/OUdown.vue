@@ -1,12 +1,12 @@
 <template>
   <div class="grcj">
     <hr/>
-    <router-link :to="'/ou/'+id+'/pins'">
+    <router-link :to="'/wakuang/#/ou/'+id+'/pins'">
       <div class="row">
         <div class="col-md-10 zuo">沸点</div>
         <div class="col-md-2 you">{{Message.pinCount}}</div>
       </div><hr/></router-link>
-    <router-link :to="'/ou/'+id+'/posts'">
+    <router-link :to="'/wakuang/#/ou/'+id+'/posts'">
       <div class="row">
         <div class="col-md-10 zuo">专栏</div>
         <div class="col-md-2 you">{{Message.articleCount}}</div>

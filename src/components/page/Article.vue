@@ -44,12 +44,12 @@
                 <tbody>
                 <tr>
                   <td class="tb_user" v-if="item.sysUser.userId===user.userId">
-                    <a :href="'/user/'+user.userId+'/posts'">
+                    <a :href="'/wakuang/#/user/'+user.userId+'/posts'">
                       <img class="img-circle" v-bind:src="item.sysUser.userAvatar">
                     </a>
                   </td>
                   <td class="tb_user" v-else>
-                    <a :href=" '/ou/'+item.sysUser.userId">
+                    <a :href=" '/wakuang/#/ou/'+item.sysUser.userId">
                       <img class="img-circle" v-bind:src="item.sysUser.userAvatar">
                     </a>
                   </td>

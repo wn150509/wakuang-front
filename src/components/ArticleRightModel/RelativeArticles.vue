@@ -4,7 +4,7 @@
       <span>推荐文章</span>
     </div><hr/>
     <div class="body" v-for="p in relativeArticles">
-      <a :href=" '/p/'+p.articleId">
+      <a :href=" '/wakuang/#/p/'+p.articleId">
         <div class="at"><p>{{p.articleTitle}}</p></div>
         <div class="row">
           <div class="col-md-5">

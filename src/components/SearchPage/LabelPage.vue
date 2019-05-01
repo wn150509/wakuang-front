@@ -5,7 +5,7 @@
     </div>
     <div class="row" v-for="label in labels" :key="label.labelsId" v-else>
       <div class="col-md-2">
-        <a :href="'/tag/'+label.labelsId">
+        <a :href="'/wakuang/#/tag/'+label.labelsId">
           <img v-bind:src="label.labelsUrl" class="labelurl">
         </a>
       </div>

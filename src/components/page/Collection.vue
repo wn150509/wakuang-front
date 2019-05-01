@@ -64,7 +64,7 @@
             </div>
             <span class="btn"></span>
             <div>
-              <a :href="'/topic/'+pinvo.topics.topicId">
+              <a :href="'/wakuang/#/topic/'+pinvo.topics.topicId">
                 <el-button type="primary" size="mini" plain round>{{pinvo.topics.topicName}}</el-button>
               </a>
             </div>
@@ -94,12 +94,12 @@
                           <tbody>
                           <tr>
                             <td class="tb_user" v-if="item.userStatus.userId===user.userId">
-                              <a :href="'/user/'+user.userId+'/posts'">
+                              <a :href="'/wakuang/#/user/'+user.userId+'/posts'">
                                 <img class="img-circle" v-bind:src="item.userStatus.userAvatar">
                               </a>
                             </td>
                             <td class="tb_user" v-else>
-                              <a :href=" '/ou/'+item.userStatus.userId">
+                              <a :href=" '/wakuang/#/ou/'+item.userStatus.userId">
                                 <img class="img-circle" v-bind:src="item.userStatus.userAvatar">
                               </a>
                             </td>
@@ -164,7 +164,7 @@
             </div>
             <span class="btn"></span>
             <div>
-              <a :href="'/topic/'+pinvo.topics.topicId">
+              <a :href="'/wakuang/#/topic/'+pinvo.topics.topicId">
                 <el-button type="primary" size="mini" plain round>{{pinvo.topics.topicName}}</el-button>
               </a>
             </div>
@@ -194,12 +194,12 @@
                           <tbody>
                           <tr>
                             <td class="tb_user" v-if="item.userStatus.userId===user.userId">
-                              <a :href="'/user/'+user.userId+'/posts'">
+                              <a :href="'/wakuang/#/user/'+user.userId+'/posts'">
                                 <img class="img-circle" v-bind:src="item.userStatus.userAvatar">
                               </a>
                             </td>
                             <td class="tb_user" v-else>
-                              <a :href=" '/ou/'+item.userStatus.userId">
+                              <a :href=" '/wakuang/#/ou/'+item.userStatus.userId">
                                 <img class="img-circle" v-bind:src="item.userStatus.userAvatar">
                               </a>
                             </td>
@@ -275,7 +275,7 @@
           <div class="row">
             <div class="col-md-3" v-for="i in users">
               <div v-if="i.userId===user.userId">
-                <a :href="'/user/'+user.userId+'/posts'">
+                <a :href="'/wakuang/#/user/'+user.userId+'/posts'">
                   <el-tooltip class="item" effect="dark" :content="i.userPosition" placement="top-start">
                     <img :src="i.userAvatar" class="userPic"/>
                   </el-tooltip>
@@ -285,7 +285,7 @@
                 </el-tooltip>
               </div>
               <div v-else>
-              <a :href=" '/ou/'+i.userId">
+              <a :href=" '/wakuang/#/ou/'+i.userId">
               <el-tooltip class="item" effect="dark" :content="i.userPosition" placement="top-start">
               <img :src="i.userAvatar" class="userPic"/>
               </el-tooltip>
@@ -305,12 +305,12 @@
                 <el-table-column align="center" label="用户头像">
                   <template slot-scope="scope">
                     <div v-if="scope.row.userId===user.userId">
-                      <a :href="'/user/'+user.userId+'/posts'">
+                      <a :href="'/wakuang/#/user/'+user.userId+'/posts'">
                         <img :src="scope.row.userAvatar" class="pic"/>
                       </a>
                     </div>
                     <div v-else>
-                      <a :href="'/ou/'+scope.row.userId">
+                      <a :href="'/wakuang/#/ou/'+scope.row.userId">
                         <img :src="scope.row.userAvatar" class="pic"/>
                       </a>
                     </div>

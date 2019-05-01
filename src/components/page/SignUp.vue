@@ -1,16 +1,16 @@
 <template>
   <div class="sign">
     <div class="logo">
-      <a href="/">
-        <img src="/static/img/logo.png" class="logo1">
+      <a href="/wakuang">
+        <img src="http://123.pen46789.cn/logo.png" class="logo1">
       </a>
     </div>
     <div class="main">
       <h4 class="title">
         <div class="normal-title">
-          <a class="active" href="sign_in">登录</a>
+          <a class="active" href="/wakuang/#/sign_in">登录</a>
           <b>·</b>
-          <a id="js-sign-up-btn" class="register" href="sign_up">
+          <a id="js-sign-up-btn" class="register" href="/wakuang/#/sign_up">
             <span class="red">注册</span>
           </a>
         </div>
@@ -63,7 +63,7 @@
           </button>
           <span class="btn"></span>
           <div>
-            <a href="/sign_in">已有账号登陆</a>
+            <a href="/wakuang/#/sign_in">已有账号登陆</a>
           </div>
         </form>
       </div>

@@ -1,4 +1,4 @@
-const rootUrl='http://localhost:8080/';
+const rootUrl='http://39.100.78.194/api/';
 
 export default {
   rootUrl

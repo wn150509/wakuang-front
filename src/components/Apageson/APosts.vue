@@ -25,7 +25,7 @@
         </div>
         <span class="btn"></span>
         <div>
-          <a :href="'/topic/'+pinvo.topics.topicId">
+          <a :href="'/wakuang/#/topic/'+pinvo.topics.topicId">
             <el-button type="primary" size="mini" plain round>{{pinvo.topics.topicName}}</el-button>
           </a>
         </div>
@@ -55,12 +55,12 @@
                       <tbody>
                       <tr>
                         <td class="tb_user" v-if="item.userStatus.userId===user.userId">
-                          <a :href="'/user/'+user.userId+'/posts'">
+                          <a :href="'/wakuang/#/user/'+user.userId+'/posts'">
                             <img class="img-circle" v-bind:src="item.userStatus.userAvatar">
                           </a>
                         </td>
                         <td class="tb_user" v-else>
-                          <a :href=" '/ou/'+item.userStatus.userId">
+                          <a :href=" '/wakuang/#/ou/'+item.userStatus.userId">
                             <img class="img-circle" v-bind:src="item.userStatus.userAvatar">
                           </a>
                         </td>

@@ -24,7 +24,7 @@
         </div>
         <span class="btn"></span>
         <div>
-          <a :href="'/topic/'+pinvo.topics.topicId">
+          <a :href="'/wakuang/#/topic/'+pinvo.topics.topicId">
             <el-button type="primary" size="mini" plain round>{{pinvo.topics.topicName}}</el-button>
           </a>
         </div>

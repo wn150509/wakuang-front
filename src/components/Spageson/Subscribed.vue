@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row subscribed">
       <div class="col-md-3" v-for="labels in labelList" :key="labels.labelsId" v-if="labels.status==1">
-        <router-link :to="'/tag/'+labels.labelsId">
+        <router-link :to="'/wakuang/#/tag/'+labels.labelsId">
           <img v-bind:src="labels.labelsUrl" class="labelurl">
           <p class="labelname">{{labels.labelsName}}</p>
         </router-link>
