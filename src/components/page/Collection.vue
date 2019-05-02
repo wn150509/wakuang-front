@@ -352,6 +352,7 @@
       }
     },
     created(){
+      console.log(this.id)
       var that=this;
       this.$http
         .post(this.GLOBAL.rootUrl+'topics/oneTopic',{"userId":this.user.userId,"topicId":this.id})

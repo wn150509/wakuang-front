@@ -158,7 +158,6 @@ export default new Router({
         },
         {
           path:'/topic/:id',
-          redirect:'topic/:id/tLike',
           component: resolve =>require(['../components/page/Collection.vue'],resolve),
           meta:{title:'某个话题'}
         },
