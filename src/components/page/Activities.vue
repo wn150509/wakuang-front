@@ -73,8 +73,7 @@
             pinUrl: '',
             topicname: ''
           },
-          TopicList:[],
-          topics:''
+          TopicList:[]
         }
       },
       components:{
@@ -104,14 +103,6 @@
             }
           }
         },
-        getTopicId(){
-          if(this.form.topicname=="一图胜千言"){this.topics=1}
-          if(this.form.topicname=='今天学到了'){this.topics=2}
-          if(this.form.topicname=='开发工具推荐'){this.topics=3}
-          if(this.form.topicname=='应用安利'){this.topics=4}
-          if(this.form.topicname=='下班打卡'){this.topics=5}
-          if(this.form.topicname=='代码写诗'){this.topics=6}
-        },
         //成功提示
         Success(){
           this.$notify.success({
@@ -136,54 +127,56 @@
         uploadFile() {
           const file = this.$refs.upload.uploadFiles[0];
           var data;
-          this.getTopicId();
-          if (!file) { // 若未选择文件
-            data=null;
-            const headerConfig = { headers: { 'Content-Type': 'application/json' } };
-            this.$http
-              .post(this.GLOBAL.rootUrl+"pin/releasePin",
-                {"pinContent": this.form.content,
-                  "pinUrl":data,
-                  "usersId":this.user.userId,
-                  "topicId":this.topics
-                },headerConfig)
-              .then(res=>{
-                if (res.status===200){
-                  this.$message.success("上传成功");
-                }else {
-                  this.$message.error("上传失败")
+          var tat=this;
+          this.$http
+            .post(this.GLOBAL.rootUrl+"topics/topicname",{"topicName":this.form.topicname})
+            .then(function (res) {
+              if (!file) { // 若未选择文件
+                console.log("未选文件"+res.data.data);
+                data=null;
+                var that=tat;
+                const headerConfig = { headers: { 'Content-Type': 'application/json' } };
+                that.$http
+                  .post(that.GLOBAL.rootUrl+"pin/releasePin",
+                    {"pinContent": that.form.content,
+                      "pinUrl":data,
+                      "usersId":that.user.userId,
+                      "topicId":res.data.data
+                    },headerConfig)
+                  .then(res=>{
+                    if (res.status===200){
+                      that.$message.success("上传成功");
+                    }else {
+                      that.$message.error("上传失败")
+                    }
+                  });
+              }else {
+                console.log("选择了文件"+res.data.data);
+                var m=tat;
+                m.imageUrl = URL.createObjectURL(file.raw);
+                // 发起请求
+                const headerConfig = { headers: { 'Content-Type': 'application/json' } };
+                var reader = new FileReader();
+                reader.readAsDataURL(file.raw);
+                reader.onload = function(e) {
+                  data = this.result; // 这个就是base64编码了
+                  console.log(data);
+                  m.$http
+                    .post(m.GLOBAL.rootUrl+"pin/releasePin",
+                      {"pinContent": m.form.content,
+                        "pinUrl":data,
+                        "usersId":m.user.userId,
+                        "topicId":res.data.data},headerConfig)
+                    .then(res=>{
+                      if (res.status===200){
+                        m.$message.success("上传成功");
+                      }else {
+                        m.$message.error("上传失败")
+                      }
+                    });
                 }
-              });
-          }else {
-            const isLt2M = file.size / 1024 / 1024 < 2;
-            if (!isLt2M) {
-              this.$message.error("请上传2M以下的.jpg文件");
-              return false;
-            }
-            this.imageUrl = URL.createObjectURL(file.raw);
-            // 发起请求
-            const headerConfig = { headers: { 'Content-Type': 'application/json' } };
-            var reader = new FileReader();
-            var that=this;
-            reader.readAsDataURL(file.raw);
-            reader.onload = function(e) {
-              data = this.result; // 这个就是base64编码了
-              console.log(data);
-              that.$http
-                .post(that.GLOBAL.rootUrl+"pin/releasePin",
-                  {"pinContent": that.form.content,
-                    "pinUrl":data,
-                    "usersId":that.user.userId,
-                    "topicId":that.topics},headerConfig)
-                .then(res=>{
-                  if (res.status===200){
-                    that.$message.success("上传成功");
-                  }else {
-                    that.$message.error("上传失败")
-                  }
-                });
-            }
-          }
+              }
+            })
           /* 此处停留1秒刷新页面 */
           setTimeout(function(){
             location.reload();
